@@ -1,10 +1,17 @@
 import React from 'react';
 import styles from "./components.module.css";
 
-const Button = ({ children, style }) => {
-  
+const Button = ({ children, style, onClickHandler, type }) => {
+  // console.log(onClickHandler)
   return (
-  <button style={style} className={styles.LoginButton}>{children}</button>
+    <button
+      type={type || null}
+      onClick={onClickHandler} 
+      style={style} 
+      className={styles.LoginButton}
+    >
+      {children}
+    </button>
   );
 };
 

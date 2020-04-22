@@ -1,6 +1,15 @@
 import { combineReducers } from 'redux';
-import team from './team';
-;
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
+import render from './render';
+
+const renderPersistConfig = {
+  key: 'render',
+  storage: storage,
+};
+
+
 export default combineReducers({
-  team,
+  render: persistReducer(renderPersistConfig, render),
 })
