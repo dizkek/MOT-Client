@@ -3,7 +3,7 @@ import Button from './Button';
 import styles from './components.module.css';
 import { REG_PATTERNS } from '../constants';
 
-const SingUp = ({ singUp }) => {
+const SingUp = ({ onCLickSingUp }) => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -14,7 +14,7 @@ const SingUp = ({ singUp }) => {
     if (!REG_PATTERNS.email.test(email)) {
       return alert('유효한 이메일을 입력해주세요');
     } else if (!REG_PATTERNS.name.test(name)) {
-      return alert('한글은 2-4자, 영문은 2-10자로 입력해주세요');
+      return alert('이름은 2-4글자 한글만 가능합니다.');
     } else if(!REG_PATTERNS.password.test(password)) {
       return alert('비밀번호는 8자부터 20자 사이입니다');
     } else if (confirmedPassword !== password) {
@@ -28,9 +28,9 @@ const SingUp = ({ singUp }) => {
       confirmedPassword,
     };
     
-    singUp(data);
-    console.log(55555);
+    onCLickSingUp(data);
   };
+  
   return (
     <form onSubmit={onSubmit}>
       <input 

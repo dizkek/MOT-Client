@@ -3,13 +3,16 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 import render from './render';
+import user from './user';
 
-const renderPersistConfig = {
-  key: 'render',
-  storage: storage,
-};
+// const renderPersistConfig = {
+//   key: 'render',
+//   storage: storage,
+// };
 
 
 export default combineReducers({
-  render: persistReducer(renderPersistConfig, render),
+  // render: persistReducer(renderPersistConfig, render),
+  render,
+  user,
 })

@@ -1,14 +1,11 @@
-import { LOGIN_REQUEST, SING_UP_REQUEST } from '../constants';
-import FacebookLogin from 'react-facebook-login';
+import { 
+  DISPLAY_SIGN_UP, 
+  CLOSE_SIGN_UP, 
+  FETCH_USER_DATA,
+} from '../constants';
 
-const asdf = () => {
-  return { type: LOGIN_REQUEST };
+export const renderSingUp = () => ({ type: DISPLAY_SIGN_UP });
+export const closeSingUp = ()=> ({ type: CLOSE_SIGN_UP });
+export const fetchUserData = (user) => {
+  return { type: FETCH_USER_DATA, user};
 };
-
-export const requestSignUp = (data) => async(dispatch) => {
-};
-
-export const sendLoginRequest = (response) => async (dispatch) => {
-  const { name, email, picture } = await response;
-};
-
