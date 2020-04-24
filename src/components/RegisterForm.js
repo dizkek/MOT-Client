@@ -37,7 +37,6 @@ const RegisterForm = ({ onCLickRegisterTeam, email }) => {
         </form>
       </div>
     </div>
- 
   );
 };
 

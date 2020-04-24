@@ -1,8 +1,0 @@
-@import '~antd/dist/antd.css';
-
-.spinner {
-  position: absolute;
-  top: 0;
-  top: 50%;
-  right: 50%;
-}

@@ -19,7 +19,6 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-
 .LoginBox {
   width: 100%;
   height: 60%;
@@ -142,4 +141,115 @@
 
 .RegisterText {
   padding: 15px;
+}
+
+.HomeContainer {
+  background-color: #EAF4F4;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.Header {
+  width: 80%;
+  margin: 0 auto;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.NavLeft {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.NavLeft li {
+  float: left;
+  margin-right: 30px;
+  font-weight: 700;
+  color: #232D41;
+}
+
+.NavLeft li a {
+  color: #232D41;
+}
+
+.NavLeft li a:hover {
+  color: #FF4641;
+}
+
+.NavRight {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.NavRight li{
+  float: left;
+}
+
+.Main {
+  margin: 0 auto;
+  width: 70%;
+  position: relative;
+}
+
+.NoticeContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.NoticeBox {
+  background-color: white;
+  width: 70%;
+  height: 80px;
+  border-radius: 3px;
+  padding: 20px;
+  overflow: hidden;
+  box-shadow: 1px 1px 1px rgba(0,0,0,.3);
+  margin: 20px;
+}
+
+.PostBox {
+  background-color: white;
+  width: 70%;
+  height: 50px;
+  border-radius: 3px;
+  padding: 20px;
+  overflow: hidden;
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+.PostBox textarea {
+  padding: 10px;
+  border: none;
+  resize: none;
+  outline: none;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.NoticeContainer span {
+  font-size: 30px;
+  color: #FF4641;
 }

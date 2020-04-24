@@ -1,7 +1,8 @@
 import { 
   LOG_IN_REQUEST, 
   SING_UP_REQUEST, 
-  LOADING_OFF, 
+  LOADING_OFF,
+  LOADING_ON, 
   LOG_IN_SUCCESS,
   TEAM_ADD_REQUEST,
   LOG_OUT,
@@ -20,6 +21,7 @@ const render = (state = initialState, action) => {
     case LOG_IN_REQUEST:
     case SING_UP_REQUEST:
     case TEAM_ADD_REQUEST:
+    case LOADING_ON:
       return {
         ...state,
         isLoading: true,

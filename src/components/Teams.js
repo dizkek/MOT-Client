@@ -5,6 +5,7 @@ import Button from './Button';
 import { COLOR } from '../constants';
 
 const Teams = ({ teams, displayRegisterForm, onClickLogOut }) => {
+  
   return (
     <div className={styles.TeamContainer}>
       <div className={styles.TeamBox}>
@@ -12,13 +13,13 @@ const Teams = ({ teams, displayRegisterForm, onClickLogOut }) => {
           <h1 className={styles.TeamListText}>My Team</h1>
           <ul className={styles.TeamUl}>
             {teams.length && teams.map((team) => 
-              <li key={team.name}><a href="/main">{team.name}</a></li>
+              <li key={team.name}><a href={`/myteam/${team.name}`}>{team.name}</a></li>
             )}
           </ul>
         </div>
         <div className={styles.TeamButtonBox}>
           <Button 
-            onClickHandler={displayRegisterForm} 
+            onClickHandler={() => displayRegisterForm()} 
             style={{ backgroundColor: COLOR.navy, margin: 0 }}
           >
             Register

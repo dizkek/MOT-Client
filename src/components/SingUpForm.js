@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from './Button';
 import styles from './components.module.css';
 import { REG_PATTERNS } from '../constants';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 
 const SingUpForm = ({ onCLickSingUp }) => {
   const [email, setEmail] = useState('');

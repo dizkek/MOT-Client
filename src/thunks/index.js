@@ -4,9 +4,10 @@ import {
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
   TEAM_ADD_REQUEST,
+  LOADING_ON,
 } from '../constants';
 
-import { fetchUserData, addTeam } from '../actions';
+import { fetchUserData, addTeam, addNotice } from '../actions';
 
 export const requestLogIn = (data, history) => async (dispatch) => {
   try {
@@ -74,7 +75,8 @@ export const registerTeam = (data, history) => async (dispatch) => {
       body: JSON.stringify(data),
     });
     const res = await response.json();
- 
+    dispatch({ type: LOADING_OFF });
+    
     if (res.result === 'duplicated') {
       return alert('이미 존재하고 있는 팀이름입니다.');
     } else if (res.result === 'ok') {
@@ -88,3 +90,29 @@ export const registerTeam = (data, history) => async (dispatch) => {
     alert('서버가 혼잡합니다. 다시 시도해주세요');
   }
 };
+
+export const requestAddNotice = (data) => async(dispatch) => {
+  try {
+    dispatch({ type: LOADING_ON });
+    const { token } = data;
+    const response = await fetch(`${process.env.REACT_APP_API}/teams/newnotice/`, {
+      method: 'POST',
+      headers: { 
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    const { result } = await response.json();
+    if (result !== 'ok') {
+      throw Error();
+    }
+
+    dispatch(addNotice(data.notice));
+    dispatch({ type: LOADING_OFF });
+  } catch(e) {
+    alert('서버가 혼잡합니다. 다시 시도해주세요');
+  }
+};
+
+
