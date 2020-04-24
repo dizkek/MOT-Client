@@ -1,18 +1,23 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import styles from "./containers.module.css";
-import Login from './LoginContainer';
+import { useSelector } from 'react-redux';
+import { Switch, Route, Redirect } from "react-router-dom";
+import AuthContainer from './AuthContainer';
+import TeamsContainer from './TeamsContainer';
 
-function App() {
+const App = () => {
+  const { isLoggedIn } = useSelector(state => state.render);
+
   return (
-    <Router>
-      <Login />
-    </Router>
+    <Switch>
+      <Route path="/teams" 
+        render={(props) => (
+          isLoggedIn ? <TeamsContainer {...props}/> : <Redirect to={{ pathname: "/" }} />
+        )}
+      />
+      <Route path="/">
+        <AuthContainer />
+      </Route>
+    </Switch>
   );
 }
 

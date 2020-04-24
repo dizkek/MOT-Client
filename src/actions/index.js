@@ -1,11 +1,15 @@
 import { 
-  DISPLAY_SIGN_UP, 
-  CLOSE_SIGN_UP, 
   FETCH_USER_DATA,
+  ADD_TEAM,
+  LOG_OUT,
 } from '../constants';
 
-export const renderSingUp = () => ({ type: DISPLAY_SIGN_UP });
-export const closeSingUp = ()=> ({ type: CLOSE_SIGN_UP });
 export const fetchUserData = (user) => {
   return { type: FETCH_USER_DATA, user};
 };
+
+export const addTeam = (team) => {
+  return { type: ADD_TEAM, team };
+};
+
+export const proceedLogOut = () => ({ type: LOG_OUT });

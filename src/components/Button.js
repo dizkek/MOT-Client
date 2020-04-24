@@ -2,7 +2,6 @@ import React from 'react';
 import styles from "./components.module.css";
 
 const Button = ({ children, style, onClickHandler, type }) => {
-
   return (
     <button
       type={type || null}

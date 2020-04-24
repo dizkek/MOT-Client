@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import Button from './Button';
 import styles from "./components.module.css";
 import { REG_PATTERNS } from '../constants';
+import { useHistory } from "react-router-dom";
+import { COLOR } from '../constants';
 
 const LoginForm = ({ onClickRenderSignUp, onClickLogIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -18,10 +21,10 @@ const LoginForm = ({ onClickRenderSignUp, onClickLogIn }) => {
       password,
     };
 
-    onClickLogIn(data);
+    onClickLogIn(data, history);
   };
 
-  return(
+  return (
     <div className={styles.FormBox}>
       <h2>L o g i n</h2>
       <div className={styles.InputBox}>
@@ -43,7 +46,12 @@ const LoginForm = ({ onClickRenderSignUp, onClickLogIn }) => {
             required
           />
           <Button type="submit">Login</Button>
-          <Button onClickHandler={onClickRenderSignUp} style={{ backgroundColor: '#232D41' }}>Sign Up</Button>
+          <Button 
+            onClickHandler={onClickRenderSignUp} 
+            style={{ backgroundColor: COLOR.navy }}
+          >
+            Sign Up
+          </Button>
         </form>
     </div>
   </div>

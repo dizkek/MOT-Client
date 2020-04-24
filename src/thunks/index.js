@@ -1,17 +1,14 @@
 import { 
   SING_UP_REQUEST, 
-  SING_UP_DUPLICATED, 
-  SING_UP_SUCCESS, 
-  HIDE_SIGN_UP, 
-  LOADING_ON, 
   LOADING_OFF, 
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
+  TEAM_ADD_REQUEST,
 } from '../constants';
 
-import { fetchUserData } from '../actions';
+import { fetchUserData, addTeam } from '../actions';
 
-export const requestLogIn = (data) => async (dispatch) => {
+export const requestLogIn = (data, history) => async (dispatch) => {
   try {
     dispatch({ type: LOG_IN_REQUEST });
     const response = await fetch(`${process.env.REACT_APP_API}/auth/login`, {
@@ -34,14 +31,14 @@ export const requestLogIn = (data) => async (dispatch) => {
     dispatch({ type: LOG_IN_SUCCESS });
     dispatch(fetchUserData(user));
     window.localStorage.setItem('token', token);
+    history.push("/teams")
   } catch(e) {
     return alert('서버가 혼잡합니다. 다시 시도해주세요');
   }
 };
 
-export const requestSignUp = (data) => async (dispatch) => {
+export const requestSignUp = (data, history) => async (dispatch) => {
   try {
-    dispatch({ type: LOADING_ON });
     dispatch({ type: SING_UP_REQUEST });
     const response = await fetch(`${process.env.REACT_APP_API}/auth/signup`, {
       method: 'POST',
@@ -50,16 +47,42 @@ export const requestSignUp = (data) => async (dispatch) => {
     });
     const res = await response.json();
     dispatch({ type: LOADING_OFF });
-
+    
     if (res.result === 'duplicated') {
-      dispatch({ type: SING_UP_DUPLICATED });
       return alert('중복된 이메일입니다.');
     } else if (res.result === 'ok') {
-      dispatch({ type: SING_UP_SUCCESS });
-      dispatch({ type: HIDE_SIGN_UP });
+      history.push("/");
       return alert('회원가입에 성공했습니다.');
     }
 
+    throw new Error();
+  } catch(e) {
+    alert('서버가 혼잡합니다. 다시 시도해주세요');
+  }
+};
+
+export const registerTeam = (data, history) => async (dispatch) => {
+  try {
+    const { token } = data;
+    dispatch({ type: TEAM_ADD_REQUEST });
+    const response = await fetch(`${process.env.REACT_APP_API}/teams/newteam`, {
+      method: 'POST',
+      headers: { 
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    const res = await response.json();
+ 
+    if (res.result === 'duplicated') {
+      return alert('이미 존재하고 있는 팀이름입니다.');
+    } else if (res.result === 'ok') {
+      dispatch(addTeam(res.team));
+      history.push("/teams");
+      return alert('팀이 추가되었습니다.');
+    }
+    
     throw new Error();
   } catch(e) {
     alert('서버가 혼잡합니다. 다시 시도해주세요');

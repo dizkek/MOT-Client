@@ -3,9 +3,7 @@
   margin-top: 30px;
   outline: none;
   border: none;
-  /* font-size: medium; */
   font-weight: 600;
-  /* letter-spacing: 5px; */
   border-radius: 5px;
   cursor: pointer;
   background-color: #FF4641;
@@ -21,13 +19,8 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-.LoginBox {
-  display: flex;
-  flex-direction: row;
-}
 
 .LoginBox {
-  /* background-color: blue; */
   width: 100%;
   height: 60%;
   background-color: #EAF4F4;
@@ -42,7 +35,6 @@
 
 .FormBox {
   padding: 50px 100px;
-  /* font-size: 50px; */
   color: #232D41;
   text-align: center;
   width: 100%;
@@ -58,8 +50,6 @@
   border-bottom: 1.5px solid;
   border-bottom-color: #232D41;
   color: #232D41;
-  /* opacity: 0.55; */
-  /* width: 250px; */
 };
 
 .FacebookImg {
@@ -87,4 +77,69 @@
   outline: none;
   border: none;
   color: #FF4641;
+}
+
+.TeamContainer {
+  width: 40%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.RegisterContainer {
+  width: 40%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.TeamBox {
+  background-color: #EAF4F4;
+  width: 60%;
+  height: 50%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 10fr 2fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.TeamButtonBox {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.TeamListText {
+  font-weight: 700;
+  color: #232D41;
+  text-align: center;
+  padding: 20px;
+  overflow:hidden;
+}
+
+.TeamUl {
+  height: 180px;
+  overflow-y:scroll;
+  list-style: none;
+  font-size: 30px;
+}
+
+.RegisterBox {
+  background-color: #EAF4F4;
+  width: 40%;
+  height: 30%;
+  font-family: 'Montserrat', sans-serif;
+  border-radius: 20;
+  text-align: center;
+  color: #232D41;
+}
+
+.RegisterText {
+  padding: 15px;
 }

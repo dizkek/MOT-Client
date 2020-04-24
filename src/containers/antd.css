@@ -2,6 +2,7 @@
 
 .spinner {
   position: absolute;
+  top: 0;
   top: 50%;
-  right: 41%;
+  right: 50%;
 }

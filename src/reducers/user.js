@@ -1,18 +1,29 @@
-import { FETCH_USER_DATA } from '../constants';
+import { FETCH_USER_DATA, ADD_TEAM, LOG_OUT } from '../constants';
 
 const initialState = {
   name: null,
   email: null,
   isAdmin: null,
-  team: [],
+  teams: [],
   password: null,
 };
 
 const user = (state = initialState, action) => {
   switch(action.type) {
     case FETCH_USER_DATA:
+      const { user } = action;
       return {
-        ...action.user,
+        ...state,
+        ...user,
+      };
+    case ADD_TEAM:
+      return {
+        ...state,
+        teams: [...state.teams, action.team],
+      };
+    case LOG_OUT:
+      return {
+        ...initialState,
       };
     default:
       return {
