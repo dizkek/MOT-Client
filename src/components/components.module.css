@@ -154,6 +154,7 @@
   margin: 0 auto;
   position: sticky;
   top: 0;
+  background-color: #EAF4F4;
   z-index: 999;
 }
 
@@ -252,4 +253,63 @@
 .NoticeContainer span {
   font-size: 30px;
   color: #FF4641;
+}
+
+.MembersContainer {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 70%;
+}
+.InviteTextBox, .MembersTextBox {
+  width: 100%;
+}
+
+.MembersContainer h1 {
+  color:#232D41;
+  font-family: 'Libre Baskerville', serif;
+  text-align: left;
+}
+
+.InviteBox, .MembersBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.InviteInput {
+  width: 80%;
+  max-height: 50px;
+  border: solid 0.125rem #003b58;
+  padding: 11px;
+  font-family: -apple-system, Roboto, sans-serif;
+}
+
+.MembersTextBox {
+  margin-top: 20px;
+}
+
+.MembersBox ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+.MembersBox ul  li {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    background: #27d897;
+    margin-bottom: 20px; 
+    color: #232D41;
+    font-family: -apple-system, Roboto, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    display: block;
 }

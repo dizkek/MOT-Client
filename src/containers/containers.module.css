@@ -20,3 +20,9 @@
 .Image {
   height: 100%;
 }
+
+.HomeContainer {
+  background-color: #EAF4F4;
+  width: 100%;
+  min-height: 100vh;
+}

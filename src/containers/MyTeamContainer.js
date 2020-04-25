@@ -1,51 +1,35 @@
-import React, { useEffect } from 'react';
-import MyTeam from '../components/MyTeam';
-import { useDispatch, useSelector } from 'react-redux';
-import { requestAddNotice } from '../thunks';
-import { getTeamData } from '../actions';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import Header from '../components/Header';
+import NoticeContainer from './NoticeContainer';
+import MembersContainers from './MembersContainer';
+import { Switch, Route } from 'react-router-dom';
+import styles from './containers.module.css';
 
 const MyTeamContainer = ({ match }) => {
-  const dispatch = useDispatch();
-  const { user } = useSelector(state => state);
-  const { notices, admin } = useSelector(state => state.team);
+  const { user } = useSelector((state) => state);
   const { teamname } = match.params;
-  const onClickAddNotice = (data) => {
-    dispatch(requestAddNotice(data));
-  }
-
-  useEffect(() => {
-    console.log('유즈이펙트')
-    const { _id } = user.teams.find((team) => team.name === teamname);
-    const fetchData = async() => {
-      try {
-        const token = window.localStorage.getItem('token');
-        const response = await fetch(`${process.env.REACT_APP_API}/teams/${_id}`, {
-          method: 'GET',
-          headers: { 
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
-        
-        const { result, team } = await response.json();
-        if (result !== 'ok') throw Error();
-        dispatch(getTeamData(team));
-      } catch (e){
-        alert('데이터를 가져오는데 실패했습니다. 리프레시를 해주세요');
-      }
-    };
-
-    fetchData();
-  }, []);
+  const team = user.teams.find((team) => team.name === teamname);
 
   return (
-    <MyTeam 
-      user={user}
-      admin={admin}
-      teamname={teamname} 
-      onClickAddNotice={onClickAddNotice}
-      notices={notices}
-    />
+    <div className={styles.HomeContainer}>
+      <Header teamname={teamname} name={user.name} />
+      <Switch>
+        <Route
+          exact
+          path={`/teams/myteam/${teamname}/members`}
+          render={(props) => (
+            <MembersContainers {...props} id={team._id} teamname={teamname} />
+          )}
+        />
+        <Route
+          path={`/teams/myteam/${teamname}`}
+          render={(props) => (
+            <NoticeContainer {...props} teamname={team.name} id={team._id} />
+          )}
+        />
+      </Switch>
+    </div>
   );
 };
 

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { registerTeam } from '../thunks';
 import Teams from '../components/Teams';
 import { useHistory } from 'react-router-dom';
-import { Route } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import RegisterForm from '../components/RegisterForm';
 import { proceedLogOut } from '../actions';
 import { Spin } from 'antd';
@@ -36,10 +36,21 @@ const TeamContainer = ({ match }) => {
   };
 
   return (
-    <>
+    <Switch>
       {isLoading && <Spin size="large" className="spinner" />}
-      <Route 
-        exact 
+      <Route
+        exact
+        path="/teams/register"
+        render={(props) => (
+          <RegisterForm 
+            {...props} 
+            onCLickRegisterTeam={onCLickRegisterTeam} 
+            email={email}
+          />
+        )}
+      />
+      <Route
+        exact
         path={match.url} 
         render={(props) => (
           <Teams 
@@ -51,17 +62,10 @@ const TeamContainer = ({ match }) => {
         )}
       />
       <Route 
-        exact 
-        path={match.url + "/register"} 
-        render={(props) => (
-          <RegisterForm 
-            {...props} 
-            onCLickRegisterTeam={onCLickRegisterTeam} 
-            email={email}
-          />
-        )}
+        path="*"
+        render={() => <Redirect to={{ pathname: "/" }} />}
       />
-    </>
+    </Switch>
   );
 };
 

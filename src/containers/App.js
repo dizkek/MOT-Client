@@ -15,18 +15,8 @@ const App = () => {
 
   return (
     <Switch>
-      <Route 
-        path="/teams" 
-        render={(props) => 
-          isLoggedIn ? (
-            <TeamsContainer {...props} />
-          ) : (
-            <Redirect to={{ pathname: "/" }} />
-          )
-        }
-      />
-      <Route 
-        path="/myteam/:teamname"
+      <Route
+        path="/teams/myteam/:teamname"
         render={({ match }) => {
           if (isLoggedIn) {
             const isValid = chekPermission(match);
@@ -36,9 +26,19 @@ const App = () => {
               <Redirect to={{ pathname: "/teams" }} />
             );
           }
-          
+
           return <Redirect to={{ pathname: "/" }} />;
         }}
+      />
+      <Route 
+        path="/teams" 
+        render={(props) => 
+          isLoggedIn ? (
+            <TeamsContainer {...props} />
+          ) : (
+            <Redirect to={{ pathname: "/" }} />
+          )
+        }
       />
       <Route path="/" component={AuthContainer} />
     </Switch>

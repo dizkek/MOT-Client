@@ -12,11 +12,13 @@ import { fetchUserData, addTeam, addNotice } from '../actions';
 export const requestLogIn = (data, history) => async (dispatch) => {
   try {
     dispatch({ type: LOG_IN_REQUEST });
-    const response = await fetch(`${process.env.REACT_APP_API}/auth/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      }
+    );
     const res = await response.json();
     dispatch({ type: LOADING_OFF });
 
@@ -41,11 +43,13 @@ export const requestLogIn = (data, history) => async (dispatch) => {
 export const requestSignUp = (data, history) => async (dispatch) => {
   try {
     dispatch({ type: SING_UP_REQUEST });
-    const response = await fetch(`${process.env.REACT_APP_API}/auth/signup`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
+    const response = await fetch(`
+      ${process.env.REACT_APP_API}/auth/signup`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      }
+    );
     const res = await response.json();
     dispatch({ type: LOADING_OFF });
     
@@ -58,6 +62,7 @@ export const requestSignUp = (data, history) => async (dispatch) => {
 
     throw new Error();
   } catch(e) {
+    dispatch({ type: LOADING_OFF });
     alert('서버가 혼잡합니다. 다시 시도해주세요');
   }
 };
@@ -66,14 +71,16 @@ export const registerTeam = (data, history) => async (dispatch) => {
   try {
     const { token } = data;
     dispatch({ type: TEAM_ADD_REQUEST });
-    const response = await fetch(`${process.env.REACT_APP_API}/teams/newteam`, {
-      method: 'POST',
-      headers: { 
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/teams/newteam`, {
+        method: 'POST',
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+    );
     const res = await response.json();
     dispatch({ type: LOADING_OFF });
     
@@ -94,15 +101,18 @@ export const registerTeam = (data, history) => async (dispatch) => {
 export const requestAddNotice = (data) => async(dispatch) => {
   try {
     dispatch({ type: LOADING_ON });
-    const { token } = data;
-    const response = await fetch(`${process.env.REACT_APP_API}/teams/newnotice/`, {
-      method: 'POST',
-      headers: { 
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
+    const { token, id } = data;
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/teams/myteam/${id}/notice`,
+      {
+        method: 'POST',
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+    );
     const { result } = await response.json();
     if (result !== 'ok') {
       throw Error();
@@ -115,4 +125,19 @@ export const requestAddNotice = (data) => async(dispatch) => {
   }
 };
 
+export const sendInvitaion = (data) => async (dispatch) => {
+  const { id, token } = data;
+  console.log(data);
+  const response = await fetch(
+    `${process.env.REACT_APP_API}/teams/${id}/invitation`,
+    {
+      method: 'POST',
+      headers: { 
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }
+  );
+};
 

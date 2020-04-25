@@ -1,4 +1,4 @@
-import { FETCH_TEAM_DATA, ADD_NOTICE_REQUEST  } from '../constants';
+import { FETCH_TEAM_DATA, ADD_NOTICE_REQUEST, FETCH_MEMBERS_DATA  } from '../constants';
 
 const initialState = {
   name: null,
@@ -21,6 +21,12 @@ const team = (state = initialState, action) => {
       return {
         ...state,
         notices: [...state.notices, action.notice],
+      }
+    case FETCH_MEMBERS_DATA:
+      console.log(action)
+      return {
+        ...state,
+        members: action.members,
       }
     default:
       return {

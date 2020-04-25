@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './components.module.css';
 import SingUpForm from './SingUpForm';
 
-const SignUp = ({ onCLickSingUp, onClickCloseSignUp}) => {
+const SignUp = ({ onCLickSingUp, onClickCloseSignUp }) => {
   return (
     <div className={styles.SingupBox}>
       <div className={styles.CloseButtonBox}>

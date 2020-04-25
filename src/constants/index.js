@@ -24,3 +24,4 @@ export const COLOR = {
 };
 
 export const ADD_NOTICE_REQUEST = 'ADD_NOTICE_REQUEST';
+export const FETCH_MEMBERS_DATA = 'FETCH_MEMBERS_DATA';

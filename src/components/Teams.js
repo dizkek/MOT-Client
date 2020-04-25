@@ -12,8 +12,8 @@ const Teams = ({ teams, displayRegisterForm, onClickLogOut }) => {
         <div>
           <h1 className={styles.TeamListText}>My Team</h1>
           <ul className={styles.TeamUl}>
-            {teams.length && teams.map((team) => 
-              <li key={team.name}><a href={`/myteam/${team.name}`}>{team.name}</a></li>
+            {teams.length > 0 && teams.map((team) => 
+              <li key={team.name}><a href={`/teams/myteam/${team.name}`}>{team.name}</a></li>
             )}
           </ul>
         </div>
