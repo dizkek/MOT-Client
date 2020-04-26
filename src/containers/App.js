@@ -4,6 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import AuthContainer from './AuthContainer';
 import TeamsContainer from './TeamsContainer';
 import MyTeamContainer from './MyTeamContainer';
+import Join from '../components/Join';
 
 const App = () => {
   const { isLoggedIn } = useSelector((state) => state.render);
@@ -11,6 +12,30 @@ const App = () => {
   const chekPermission = (match) => {
     const { teamname } = match.params;
     return teams.some((team) => team.name === teamname);
+  };
+
+  const onClickJoin = async (data) => {
+    try {
+      const { token, team_id } = data;
+      const response = await fetch(
+        `${process.env.REACT_APP_API}/teams/${team_id}/join/${token}`,
+        {
+          method: 'POST',
+          headers: { 
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const { result } = await response.json();
+      if (result === 'was verified') return alert('이미 인증되었습니다.');
+      if (result !== 'ok') throw Error(); 
+      alert('가입이 성공하였습니다.');
+  
+    } catch (error) {
+      alert('만료된 링크입니다.');
+    }
   };
 
   return (
@@ -29,6 +54,11 @@ const App = () => {
 
           return <Redirect to={{ pathname: "/" }} />;
         }}
+      />
+      <Route 
+        exact 
+        path="/teams/:team_id/join/:token" 
+        render={(props) => <Join {...props} onClickJoin={onClickJoin}/>}
       />
       <Route 
         path="/teams" 

@@ -7,13 +7,14 @@ import {
   LOADING_ON,
 } from '../constants';
 
-import { fetchUserData, addTeam, addNotice } from '../actions';
+import { fetchUserData, addTeam, addNotice, fetchMembersData, getTeamData } from '../actions';
 
 export const requestLogIn = (data, history) => async (dispatch) => {
   try {
     dispatch({ type: LOG_IN_REQUEST });
     const response = await fetch(
-      `${process.env.REACT_APP_API}/auth/login`, {
+      `${process.env.REACT_APP_API}/auth/login`,
+      {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
@@ -35,7 +36,7 @@ export const requestLogIn = (data, history) => async (dispatch) => {
     dispatch(fetchUserData(user));
     window.localStorage.setItem('token', token);
     history.push("/teams")
-  } catch(e) {
+  } catch (error) {
     return alert('서버가 혼잡합니다. 다시 시도해주세요');
   }
 };
@@ -44,7 +45,8 @@ export const requestSignUp = (data, history) => async (dispatch) => {
   try {
     dispatch({ type: SING_UP_REQUEST });
     const response = await fetch(`
-      ${process.env.REACT_APP_API}/auth/signup`, {
+      ${process.env.REACT_APP_API}/auth/signup`,
+      {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
@@ -61,7 +63,7 @@ export const requestSignUp = (data, history) => async (dispatch) => {
     }
 
     throw new Error();
-  } catch(e) {
+  } catch (error) {
     dispatch({ type: LOADING_OFF });
     alert('서버가 혼잡합니다. 다시 시도해주세요');
   }
@@ -72,7 +74,8 @@ export const registerTeam = (data, history) => async (dispatch) => {
     const { token } = data;
     dispatch({ type: TEAM_ADD_REQUEST });
     const response = await fetch(
-      `${process.env.REACT_APP_API}/teams/newteam`, {
+      `${process.env.REACT_APP_API}/teams/newteam`,
+      {
         method: 'POST',
         headers: { 
           'Authorization': `Bearer ${token}`,
@@ -93,12 +96,12 @@ export const registerTeam = (data, history) => async (dispatch) => {
     }
     
     throw new Error();
-  } catch(e) {
+  } catch (error) {
     alert('서버가 혼잡합니다. 다시 시도해주세요');
   }
 };
 
-export const requestAddNotice = (data) => async(dispatch) => {
+export const requestAddNotice = (data) => async (dispatch) => {
   try {
     dispatch({ type: LOADING_ON });
     const { token, id } = data;
@@ -120,24 +123,51 @@ export const requestAddNotice = (data) => async(dispatch) => {
 
     dispatch(addNotice(data.notice));
     dispatch({ type: LOADING_OFF });
-  } catch(e) {
+  } catch (error) {
     alert('서버가 혼잡합니다. 다시 시도해주세요');
   }
 };
 
-export const sendInvitaion = (data) => async (dispatch) => {
-  const { id, token } = data;
-  console.log(data);
-  const response = await fetch(
-    `${process.env.REACT_APP_API}/teams/${id}/invitation`,
-    {
-      method: 'POST',
-      headers: { 
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    }
-  );
+export const requestMembersData = (id) => async (dispatch) => {
+  try {
+    const token = window.localStorage.getItem('token');
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/teams/myteam/${id}/members`, 
+      {
+        method: 'GET',
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    
+    const { result, members } = await response.json();
+    if (result !== 'ok') throw Error();
+    dispatch(fetchMembersData(members));
+  } catch (error) {
+    alert('데이터를 가져오는데 실패했습니다. 리프레시를 해주세요');
+  }
 };
 
+export const requestTeamData = (id) => async (dispatch) => {
+  try {
+    const token = window.localStorage.getItem('token');
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/teams/myteam/${id}`,
+      {
+        method: 'GET',
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    
+    const { result, team } = await response.json();
+    if (result !== 'ok') throw Error();
+    dispatch(getTeamData(team));
+  } catch (error) {
+    alert('데이터를 가져오는데 실패했습니다. 리프레시를 해주세요');
+  }
+};

@@ -12,8 +12,6 @@ const initialState = {
   isLoading: false,
   isError: false,
   isLoggedIn: false,
-  isSigning: false,
-  hasClikcedTeam: false,
 };
 
 const render = (state = initialState, action) => {
@@ -38,8 +36,7 @@ const render = (state = initialState, action) => {
       };
     case LOG_OUT:
       return {
-        ...state,
-        isLoggedIn: false,
+        ...initialState,
       };
     default:
       return {

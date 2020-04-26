@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestAddNotice } from '../thunks';
-import { getTeamData } from '../actions';
+import { requestTeamData } from '../thunks';
 import Notice from '../components/Notice';
 
 const NoticeContainer = ({ teamname, id }) => {
@@ -13,29 +13,12 @@ const NoticeContainer = ({ teamname, id }) => {
   };
 
   useEffect(() => {
-    const fetchData = async() => {
-      try {
-        const token = window.localStorage.getItem('token');
-        const response = await fetch(
-          `${process.env.REACT_APP_API}/teams/myteam/${id}`,
-          {
-            method: 'GET',
-            headers: { 
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json',
-          },
-        });
-        
-        const { result, team } = await response.json();
-        if (result !== 'ok') throw Error();
-        dispatch(getTeamData(team));
-      } catch (e){
-        alert('데이터를 가져오는데 실패했습니다. 리프레시를 해주세요');
-      }
+    const fetchData = async(id) => {
+      dispatch(requestTeamData(id));
     };
 
-    fetchData();
-  }, []);
+    fetchData(id);
+  }, [id, dispatch]);
 
   return(
     <Notice

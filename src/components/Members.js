@@ -32,7 +32,7 @@ const Members = ({ members, id, onClickSendInvitation, teamname }) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className={styles.InviteInput} 
-            placeholder="Type here" 
+            placeholder="Type email here" 
           />
           <Button 
             onClickHandler={debouncedSubmit} 
@@ -47,7 +47,7 @@ const Members = ({ members, id, onClickSendInvitation, teamname }) => {
         <div className={styles.MembersBox}>
           <ul>
             {members.length > 0 && 
-              members.map((member) => <li key={member}>{member.name}</li>)}
+              members.map((member) => <li key={member + Math.random()}>{member.name}</li>)}
           </ul>
         </div>
       </div>
