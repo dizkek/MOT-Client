@@ -2,7 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Header from '../components/Header';
 import NoticeContainer from './NoticeContainer';
-import MembersContainers from './MembersContainer';
+import MembersContainer from './MembersContainer';
+import FormationContainer from './FormationComponent';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import styles from './containers.module.css';
 
@@ -21,11 +22,16 @@ const MyTeamContainer = ({ match }) => {
           path={`/teams/myteam/${teamname}/members`}
           render={(props) => 
             user._id === admin ? (
-              <MembersContainers {...props} id={team._id} teamname={teamname} />
+              <MembersContainer {...props} id={team._id} teamname={teamname} />
             ) : (
               <Redirect to={{ pathname: `/teams/myteam/${teamname}` }} />
             )
           }
+        />
+        <Route 
+          exact
+          path={`/teams/myteam/${teamname}/formation`}
+          component={FormationContainer}
         />
         <Route
           path={`/teams/myteam/${teamname}`}

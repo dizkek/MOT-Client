@@ -4,6 +4,7 @@ import {
   LOADING_OFF,
   LOADING_ON, 
   LOG_IN_SUCCESS,
+  LOG_IN_FAILURE,
   TEAM_ADD_REQUEST,
   LOG_OUT,
 } from '../constants';
@@ -25,6 +26,7 @@ const render = (state = initialState, action) => {
         isLoading: true,
       };
     case LOADING_OFF:
+    case LOG_IN_FAILURE:
       return {
         ...state,
         isLoading: false,

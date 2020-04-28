@@ -4,6 +4,7 @@ export const LOG_OUT = 'LOG_OUT';
 export const FETCH_USER_DATA = 'FETCH_USER_DATA';
 export const LOADING_ON = 'LOADING_ON';
 export const LOADING_OFF = 'LOADING_OFF';
+export const LOG_IN_FAILURE = 'LOG_IN_FAILURE';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const HIDE_SIGN_UP = 'HIDE_SIGN_UP';
 export const CLOSE_SIGN_UP = 'HIDE_SIGN_UP';

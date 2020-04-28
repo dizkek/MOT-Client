@@ -4,7 +4,7 @@ import Button from './Button';
 
 const Join =({ match, onClickJoin }) => {
   const { token, team_id } = match.params;
-  
+
   const joinTeam = () => {
     const data = {
       token,

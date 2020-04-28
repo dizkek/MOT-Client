@@ -14,7 +14,7 @@ const App = () => {
     return teams.some((team) => team.name === teamname);
   };
 
-  const onClickJoin = async (data) => {
+  const onClickJoin = async (data, history) => {
     try {
       const { token, team_id } = data;
       const response = await fetch(
@@ -31,8 +31,7 @@ const App = () => {
       const { result } = await response.json();
       if (result === 'was verified') return alert('이미 인증되었습니다.');
       if (result !== 'ok') throw Error(); 
-      alert('가입이 성공하였습니다.');
-  
+      alert('팀 가입이 완료됐습니다.');
     } catch (error) {
       alert('만료된 링크입니다.');
     }

@@ -10,6 +10,7 @@
     "dotenv": "^8.2.0",
     "lodash": "^4.17.15",
     "react": "^16.13.1",
+    "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^16.13.1",
     "react-facebook-login": "^4.1.1",
     "react-google-login": "^5.1.3",

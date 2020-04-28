@@ -3,6 +3,7 @@ import {
   LOADING_OFF, 
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
+  LOG_IN_FAILURE,
   TEAM_ADD_REQUEST,
   LOADING_ON,
 } from '../constants';
@@ -37,6 +38,7 @@ export const requestLogIn = (data, history) => async (dispatch) => {
     window.localStorage.setItem('token', token);
     history.push("/teams")
   } catch (error) {
+    dispatch({ type: LOG_IN_FAILURE });
     return alert('서버가 혼잡합니다. 다시 시도해주세요');
   }
 };

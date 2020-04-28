@@ -10,7 +10,7 @@ const Notice = ({ user, admin, notices, onClickAddNotice, teamname, id }) => {
     const data = {
       notice : {
         content: notice,
-        date: new Date().toISOString(),
+        date: new Date().toLocaleString(),
       },
       teamname,
       token,
@@ -48,7 +48,10 @@ const Notice = ({ user, admin, notices, onClickAddNotice, teamname, id }) => {
         )}
         <span>Notice</span>
         {notices.slice(0).reverse().map((notice, i) => 
-          <div className={styles.NoticeBox} key={notice + i}>{notice.content}</div>
+          <div className={styles.NoticeBox} key={notice + i}>
+            <div className={styles.NoticeTextBox}>{notice.content}</div>
+        <div className={styles.TimeBox}>{notice.date.slice(0, 11)}</div>
+          </div>
         )}
       </div>
     </main>
