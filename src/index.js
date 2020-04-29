@@ -11,11 +11,16 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { loadState, saveState } from './lib/localStorage';
 
 const persistedState = loadState();
+const composeEnhancers = composeWithDevTools({
+  trace: true, 
+});
+
 const store = createStore(
   rootReducer,
   persistedState,
-  composeWithDevTools(applyMiddleware(thunk))
+  composeEnhancers(applyMiddleware(thunk))
 );
+
 store.subscribe(() => saveState(store.getState()));
 
 ReactDOM.render(

@@ -9,12 +9,13 @@ import Join from '../components/Join';
 const App = () => {
   const { isLoggedIn } = useSelector((state) => state.render);
   const { teams } = useSelector((state) => state.user);
+
   const chekPermission = (match) => {
     const { teamname } = match.params;
-    return teams.some((team) => team.name === teamname);
+    return teams.allIds.some((id) => teams.byId[id].name === teamname);
   };
 
-  const onClickJoin = async (data, history) => {
+  const onClickJoin = async (data) => {
     try {
       const { token, team_id } = data;
       const response = await fetch(

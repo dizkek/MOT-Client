@@ -5,7 +5,7 @@ import debounce from 'lodash/debounce';
 
 const Members = ({ members, id, onClickSendInvitation, teamname }) => {
   const [email, setEmail] = useState('');
-
+  const { byId, allIds } = members;
   const submit = () => {
     const token = window.localStorage.getItem('token');
     const data = {
@@ -20,7 +20,7 @@ const Members = ({ members, id, onClickSendInvitation, teamname }) => {
 
   const debouncedSubmit = debounce(submit, 700);
 
-  return(
+  return (
     <main className={styles.Main}>
       <div className={styles.MembersContainer}>
         <div className={styles.InviteTextBox}>
@@ -46,8 +46,8 @@ const Members = ({ members, id, onClickSendInvitation, teamname }) => {
         </div>
         <div className={styles.MembersBox}>
           <ul>
-            {members.length > 0 && 
-              members.map((member) => <li key={member + Math.random()}>{member.name}</li>)}
+            {allIds.length > 0 && 
+              allIds.map((id) => <li key={id + Math.random()}>{byId[id].name}</li>)}
           </ul>
         </div>
       </div>

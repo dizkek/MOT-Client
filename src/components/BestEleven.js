@@ -1,33 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './components.module.css';
 import Column from './Column';
+import Button from '../components/Button';
 import { DragDropContext } from 'react-beautiful-dnd';
 
-const initialData = {
-  players: {
-    'players-1': { id: 'players-1', name : '지용' },
-    'players-2': { id: 'players-2', name : '기업' },
-    'players-3': { id: 'players-3', name : '태현' },
-    'players-4': { id: 'players-4', name : '민선' },
-  },
-  columns: {
-    'column-1': {
-      id: 'column-1',
-      title: 'Team List',
-      playersIds: ['players-1', 'players-2', 'players-3', 'players-4'],
-    },
-    'column-2': {
-      id: 'column-2',
-      title: 'Best Eleven',
-      playersIds: [],
-    }
-  },
-  columnOrder: ['column-1', 'column-2'],
-};
-
-const BestEleven = () => {
-  const [data, setData] = useState(initialData);
-
+const BestEleven = ({ data, setData, onClickDisplayTactic }) => {
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
 
@@ -92,15 +69,22 @@ const BestEleven = () => {
   };
   
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <div className={styles.BestElevenContainer}>
-        {data.columnOrder.map((columnId) => {
-          const column = data.columns[columnId];
-          const players = column.playersIds.map((playersId) => data.players[playersId]);
-          return <Column key={column.id} column={column} players={players} />
-        })}
-      </div>
-    </DragDropContext>
+    <>
+      <Button style={{ margin: 15 }} onClickHandler={onClickDisplayTactic}>
+        Save
+      </Button>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <div className={styles.BestElevenContainer}>
+          {data.columnOrder.map((columnId) => {
+            const column = data.columns[columnId];
+            const players = column.playersIds.map(
+              (playersId) => data.players[playersId]
+            );
+            return <Column key={column.id} column={column} players={players} />;
+          })}
+        </div>
+      </DragDropContext>
+    </>
   );
 };
 

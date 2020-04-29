@@ -8,7 +8,7 @@ const Notice = ({ user, admin, notices, onClickAddNotice, teamname, id }) => {
   const submit = () => {
     const token = window.localStorage.getItem('token');
     const data = {
-      notice : {
+      notice: {
         content: notice,
         date: new Date().toLocaleString(),
       },
@@ -50,7 +50,7 @@ const Notice = ({ user, admin, notices, onClickAddNotice, teamname, id }) => {
         {notices.slice(0).reverse().map((notice, i) => 
           <div className={styles.NoticeBox} key={notice + i}>
             <div className={styles.NoticeTextBox}>{notice.content}</div>
-        <div className={styles.TimeBox}>{notice.date.slice(0, 11)}</div>
+            <div className={styles.TimeBox}>{notice.date.slice(0, 11)}</div>
           </div>
         )}
       </div>

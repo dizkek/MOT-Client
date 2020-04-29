@@ -61,10 +61,7 @@ const TeamContainer = ({ match }) => {
           />
         )}
       />
-      <Route 
-        path="*"
-        render={() => <Redirect to={{ pathname: "/" }} />}
-      />
+      <Route path="*" render={() => <Redirect to={{ pathname: "/" }} />} />
     </Switch>
   );
 };

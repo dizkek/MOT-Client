@@ -3,19 +3,26 @@ import { useSelector } from 'react-redux';
 import Header from '../components/Header';
 import NoticeContainer from './NoticeContainer';
 import MembersContainer from './MembersContainer';
-import FormationContainer from './FormationComponent';
+import FormationContainer from './FormationContainer';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import styles from './containers.module.css';
 
 const MyTeamContainer = ({ match }) => {
   const { user } = useSelector((state) => state);
+  const { teams } = useSelector((state) => state.user);
   const { admin } = useSelector(state => state.team);
   const { teamname } = match.params;
-  const team = user.teams.find((team) => team.name === teamname);
+  const teamId = teams.allIds.find((id) => teams.byId[id].name === teamname);
+  const team = teams.byId[teamId];
 
   return (
     <div className={styles.HomeContainer}>
-      <Header teamname={teamname} name={user.name} admin={admin} id={user._id}/>
+      <Header 
+        teamname={teamname} 
+        name={user.name} 
+        admin={admin} 
+        id={user._id}
+      />
       <Switch>
         <Route
           exact
@@ -29,14 +36,13 @@ const MyTeamContainer = ({ match }) => {
           }
         />
         <Route 
-          exact
           path={`/teams/myteam/${teamname}/formation`}
-          component={FormationContainer}
+          render={(props) => <FormationContainer {...props} id={teamId} />}
         />
         <Route
           path={`/teams/myteam/${teamname}`}
           render={(props) => (
-            <NoticeContainer {...props} teamname={team.name} id={team._id} />
+            <NoticeContainer {...props} teamname={team.name} id={teamId} />
           )}
         />
       </Switch>

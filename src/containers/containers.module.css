@@ -26,3 +26,22 @@
   width: 100%;
   min-height: 100vh;
 }
+
+.MainFormation {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(13, 40px);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.contentContainer {
+  margin: 0 auto;
+  width: 70%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  grid-area: 2 / 1 / 15 / 2;
+}

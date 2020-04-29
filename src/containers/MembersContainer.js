@@ -6,7 +6,7 @@ import { requestMembersData } from '../thunks';
 const MembersContainer = ({ id, teamname }) => {
   const dispatch = useDispatch();
   const { members } = useSelector((state) => state.team);
-  
+
   const onClickSendInvitation = async (data) => {
     try {
       const { id, token } = data;
@@ -33,9 +33,9 @@ const MembersContainer = ({ id, teamname }) => {
     const fetchData = async (id) => {
       dispatch(requestMembersData(id));
     };
-
+    
     fetchData(id);
-  }, [id, dispatch]);
+  }, []);
 
   return (
     <Members 

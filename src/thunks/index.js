@@ -8,7 +8,15 @@ import {
   LOADING_ON,
 } from '../constants';
 
-import { fetchUserData, addTeam, addNotice, fetchMembersData, getTeamData } from '../actions';
+import { 
+  fetchUserData, 
+  addTeam, 
+  addNotice, 
+  fetchMembersData, 
+  getTeamData,
+  saveFormation,
+  updateFormation,
+} from '../actions';
 
 export const requestLogIn = (data, history) => async (dispatch) => {
   try {
@@ -171,5 +179,52 @@ export const requestTeamData = (id) => async (dispatch) => {
     dispatch(getTeamData(team));
   } catch (error) {
     alert('데이터를 가져오는데 실패했습니다. 리프레시를 해주세요');
+  }
+};
+
+export const requestSaveFormation = (data, id, history) => async (dispatch) => {
+  try {
+    dispatch({ type: LOADING_ON });
+    const token = window.localStorage.getItem('token');
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/teams/myteam/${id}/formation`,
+      {
+        method: 'POST',
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    const { result } = await response.json();
+    dispatch({ type: LOADING_OFF });
+    dispatch(saveFormation(data));
+    if (result !== 'ok') throw Error();
+    history.push('/teams/myteam/바코/formation');
+    alert('포메이션 저장이 완료되었습니다.');
+  } catch (error) {
+    alert('포메이션 저장이 실패했습니다. 다시 시도해 주세요');
+  }
+};
+
+export const requestFormationData = (teamId) => async (dispatch) => {
+  try {
+    const token = window.localStorage.getItem('token');
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/teams/myteam/${teamId}/formation`,
+      {
+        method: 'GET',
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    const { result, formation } = await response.json();
+    if (result !== 'ok') throw Error();
+    dispatch(updateFormation(formation));
+  } catch (error) {
+    alert('포메이션 데이터 가져오기가 실패했습니다.');
   }
 };

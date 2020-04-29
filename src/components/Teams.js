@@ -6,15 +6,17 @@ import { COLOR } from '../constants';
 import { Link } from 'react-router-dom';
 
 const Teams = ({ teams, displayRegisterForm, onClickLogOut }) => {
+  const { allIds, byId } = teams;
+
   return (
     <div className={styles.TeamContainer}>
       <div className={styles.TeamBox}>
         <div>
           <h1 className={styles.TeamListText}>My Team</h1>
           <ul className={styles.TeamUl}>
-            {teams.length > 0 && teams.map((team) => (
-              <li key={team.name}>
-                <Link to={`/teams/myteam/${team.name}`}>{team.name}</Link>
+            {allIds.length > 0 && allIds.map((id) => (
+              <li key={byId[id].name}>
+                <Link to={`/teams/myteam/${byId[id].name}`}>{byId[id].name}</Link>
               </li>
             ))}
           </ul>
