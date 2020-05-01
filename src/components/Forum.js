@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import styles from './components.module.css';
 import Button from './Button';
-import { PROFILE } from '../constants/imageURL';
 import Post from '../components/Post';
 import { COLOR } from '../constants/style'
+import { PROFILE } from '../constants/imageURL';
+import styles from './components.module.css';
+
 const Forum = ({ 
   onClickAddNewPost,
   teamId,
@@ -15,8 +16,7 @@ const Forum = ({
   onClickDeletePost
 }) => {
   const [post, setPost] = useState('');
-  const [comment, setComment] = useState('');
-  const [isCommenting, setIsCommenting] = useState('');
+
   const data = {
     post: {
       name,
@@ -43,7 +43,7 @@ const Forum = ({
               padding: '5px', 
               fontSize: 15, 
               margin: 0, 
-              backgroundColor: COLOR.navy ,
+              backgroundColor: COLOR.navy,
             }}
             onClickHandler={() => onClickAddNewPost(data)}
           >
@@ -55,16 +55,13 @@ const Forum = ({
             key={id}
             post={forum.byId[id]}
             teamId={teamId}
-            setIsCommenting={setIsCommenting} 
-            isCommenting={isCommenting} 
-            comment={comment}
-            setComment={setComment}
             userId={userId}
             onClickLikePost={onClickLikePost}
             onClickModifyPost={onClickModifyPost}
             onClickDeletePost={onClickDeletePost}
+            onClickAddNewPost={onClickAddNewPost}
           />
-        ))}
+        ))} 
       </div>
     </main>
   );

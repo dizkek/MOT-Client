@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from './components.module.css';
 import Button from './Button';
+import styles from './components.module.css';
 
 const Join =({ match, onClickJoin }) => {
   const { token, team_id } = match.params;

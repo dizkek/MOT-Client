@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import styles from './components.module.css';
 import Button from './Button';
 import debounce from 'lodash/debounce';
 import { COLOR } from '../constants/style';
+import styles from './components.module.css';
 
 const Notice = ({ user, admin, notices, onClickAddNotice, teamname, id }) => {
   const [notice, setNotice] = useState('');

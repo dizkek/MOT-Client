@@ -3,11 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { requestSignUp, requestLogIn } from '../thunks';
 import { Switch, Route } from "react-router-dom";
 import { Spin } from 'antd';
-import styles from "./containers.module.css";
-import loginImage from '../images/login.jpg';
+import { useHistory } from "react-router-dom";
 import SignUp from '../components/SignUp';
 import LoginForm from '../components/LoginForm';
-import { useHistory } from "react-router-dom";
+import loginImage from '../images/login.jpg';
+import styles from "./containers.module.css";
 
 const AuthContainer = () => {
   const dispatch = useDispatch();

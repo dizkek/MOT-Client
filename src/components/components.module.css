@@ -542,11 +542,9 @@
 }
 
 .CommentBox {
-  border-top: 1.5px solid grey;
-}
-
-.CommentBox {
-  padding: 5px
+  padding: 5px;
+  display: flex;
+  align-items: center;
 }
 
 .EditBox {
@@ -568,4 +566,8 @@
   width: 100%;
   font-weight: 500;
   font-size: 20px;
+}
+
+.CommentText {
+  margin: 0 15px 0 0;
 }

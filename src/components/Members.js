@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import styles from './components.module.css';
 import Button from '../components/Button';
 import debounce from 'lodash/debounce';
-import { COLOR } from '../constants/style'
+import { COLOR } from '../constants/style';
+
 const Members = ({ members, id, onClickSendInvitation, teamname }) => {
   const [email, setEmail] = useState('');
   const { byId, allIds } = members;
@@ -14,7 +15,7 @@ const Members = ({ members, id, onClickSendInvitation, teamname }) => {
       token,
       teamname,
     };
-    
+
     onClickSendInvitation(data);
   };
 
@@ -27,15 +28,15 @@ const Members = ({ members, id, onClickSendInvitation, teamname }) => {
           <h2>Invite a new member</h2>
         </div>
         <div className={styles.InviteBox}>
-          <input 
+          <input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className={styles.InviteInput} 
-            placeholder="Type email here" 
+            className={styles.InviteInput}
+            placeholder="Type email here"
           />
-          <Button 
-            onClickHandler={debouncedSubmit} 
+          <Button
+            onClickHandler={debouncedSubmit}
             style={{ margin: 0, backgroundColor: COLOR.navy }}
           >
             Send
@@ -46,8 +47,10 @@ const Members = ({ members, id, onClickSendInvitation, teamname }) => {
         </div>
         <div className={styles.MembersBox}>
           <ul>
-            {allIds.length > 0 && 
-              allIds.map((id) => <li key={id + Math.random()}>{byId[id].name}</li>)}
+            {allIds.length > 0 &&
+              allIds.map((id) => (
+                <li key={id + Math.random()}>{byId[id].name}</li>
+              ))}
           </ul>
         </div>
       </div>

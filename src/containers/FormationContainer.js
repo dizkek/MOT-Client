@@ -5,10 +5,11 @@ import AdminMenu from '../components/AdminMenu';
 import { useDispatch, useSelector } from 'react-redux';
 import TacticBoard from '../components/TacticBoard';
 import { Switch, Route } from 'react-router-dom';
-import styles from './containers.module.css';
 import { requestSaveFormation, requestFormationData } from '../thunks';
 import { BEST_ELEVEN } from '../constants/initialData';
+import { ABSOLUTE } from '../constants/style';
 import { Spin } from 'antd';
+import styles from './containers.module.css';
 
 const FormationContainer = ({ match, id }) => {
   const dispatch = useDispatch();
@@ -49,9 +50,9 @@ const FormationContainer = ({ match, id }) => {
     if (data.length !== 11 || count !== 11) {
       return alert('11명을 모두 경기장 안으로 넣어주세요!!');
     }
+
     setIsChanging(false);
     dispatch(requestSaveFormation(data, id, history));
-    
   };
 
   useEffect(() => {
@@ -66,7 +67,7 @@ const FormationContainer = ({ match, id }) => {
     return (
       <Spin 
         size="large" 
-        style={{ position: 'absolute', top: '50%', left: '50%'}} 
+        style={{ position: ABSOLUTE, top: '50%', left: '50%'}} 
       />
     );
   }

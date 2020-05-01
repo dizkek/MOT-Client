@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from './components.module.css';
 import SingUpForm from './SingUpForm';
+import styles from './components.module.css';
 
 const SignUp = ({ onCLickSingUp, onClickCloseSignUp }) => {
   return (

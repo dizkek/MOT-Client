@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { requestAddNotice } from '../thunks';
-import { requestTeamData } from '../thunks';
 import Notice from '../components/Notice';
+import { requestAddNotice, requestTeamData } from '../thunks';
 
 const NoticeContainer = ({ teamname, id }) => {
   const dispatch = useDispatch();

@@ -1,9 +1,8 @@
 import React from 'react';
-import styles from './components.module.css';
 import Column from './Column';
 import Button from '../components/Button';
 import { DragDropContext } from 'react-beautiful-dnd';
-
+import styles from './components.module.css';
 const BestEleven = ({ data, setData, onClickDisplayTactic }) => {
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;

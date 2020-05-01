@@ -29,3 +29,6 @@ export const FETCH_FORUM_DATA = 'FETCH_FORUM_DATA';
 export const UPDATE_LIKES = 'UPDATE_LIKES';
 export const UPDATE_POST ='UPDATE_POST';
 export const DELETE_POST = 'DELETE_POST';
+export const FETCH_COMMENTS = 'FETCH_COMMENTS';
+export const ADD_COMMENT = 'ADD_COMMENT';
+export const DELETE_COMMENT = 'DELETE_COMMENT';

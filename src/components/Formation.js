@@ -1,12 +1,13 @@
 import React from 'react';
-import styles from './components.module.css';
 import halfField from '../images/half field.png';
+import { ABSOLUTE, RELATIVE } from '../constants/style';
+import styles from './components.module.css';
 
 const Formation = ({ formation }) => {
   return (
     <>
       <div className={styles.FieldBox} >
-        <div style={{ position: 'relative' }}>
+        <div style={{ position: RELATIVE }}>
           <img src={halfField} className={styles.FieldImg} alt="halfField"/>  
         </div>
       </div>
@@ -15,7 +16,7 @@ const Formation = ({ formation }) => {
           <span 
             key={player.innerText} 
             style={{ 
-              position: 'absolute', 
+              position: ABSOLUTE, 
               marginLeft: player.marginLeft, 
               marginTop: player.marginTop 
             }}

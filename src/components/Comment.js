@@ -1,11 +1,16 @@
 import React from 'react';
+import { CloseCircleOutlined } from '@ant-design/icons';
 import styles from './components.module.css';
 
-const Comment = () => {
+const Comment = ({ comment, onClickDeleteComment }) => {
   return (
     <div className={styles.CommentBox}>
-      민쌤: 저도 이거봤습니다 강추강추!
-    </div>
+      <p className={styles.CommentText}>{`${comment.name}: ${comment.content}`}</p>
+      <CloseCircleOutlined 
+        style={{ fontSize: '18px' }}  
+        onClick={() => onClickDeleteComment(comment._id, comment.postId)}
+      />
+    </div>  
   );
 };
 

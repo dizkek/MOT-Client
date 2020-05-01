@@ -1,9 +1,9 @@
 import React from 'react';
-import styles from './components.module.css';
-import './antd.css';
 import Button from './Button';
 import { COLOR } from '../constants/style';
 import { Link } from 'react-router-dom';
+import './antd.css';
+import styles from './components.module.css';
 
 const Teams = ({ teams, displayRegisterForm, onClickLogOut }) => {
   const { allIds, byId } = teams;

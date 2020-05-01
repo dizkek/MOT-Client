@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { registerTeam } from '../thunks';
-import Teams from '../components/Teams';
 import { useHistory } from 'react-router-dom';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import Teams from '../components/Teams';
+import { registerTeam } from '../thunks';
 import RegisterForm from '../components/RegisterForm';
 import { proceedLogOut } from '../actions';
 import { Spin } from 'antd';

@@ -12,6 +12,9 @@ import {
   UPDATE_LIKES,
   UPDATE_POST,
   DELETE_POST,
+  FETCH_COMMENTS,
+  ADD_COMMENT,
+  DELETE_COMMENT,
 } from '../constants';
 
 export const fetchUserData = (user) => ({ type: FETCH_USER_DATA, user });
@@ -27,3 +30,6 @@ export const updatePost = (data) => ({ type: UPDATE_POST, data });
 export const deletePost = (postId) => ({ type: DELETE_POST, postId });
 export const fetchForumData = (forum) => ({ type: FETCH_FORUM_DATA, forum });
 export const updateLikes = (data) => ({ type: UPDATE_LIKES, data });
+export const fetchCommnets = (comments) => ({ type: FETCH_COMMENTS, comments });
+export const addComment = (comment) => ({ type: ADD_COMMENT, comment });
+export const deleteComment = (data) => ({ type: DELETE_COMMENT, data });

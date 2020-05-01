@@ -1,3 +1,4 @@
+import { byIdObjCreator } from '../lib/reducerHelper';
 import { 
   FETCH_TEAM_DATA,
   FETCH_FORUM_DATA,
@@ -5,6 +6,8 @@ import {
   UPDATE_LIKES,
   UPDATE_POST,
   DELETE_POST,
+  ADD_COMMENT,
+  DELETE_COMMENT,
 } from '../constants';
 
 const initialState = {
@@ -12,26 +15,19 @@ const initialState = {
   allId: [],
 };
 
-const byIdObj = (entity) => {
-  return entity.reduce((acc, current) => {
-    acc[current._id] = current;
-    return acc;
-  }, {});;
-};
-
 const forum = (state = initialState, action) => {
   switch(action.type) {
     case FETCH_TEAM_DATA:
       const { forum } = action.team;
       return {
-        byId: byIdObj(forum),
+        byId: byIdObjCreator(forum),
         allIds: forum.map((forum) => forum._id).reverse(),
       };
     case FETCH_FORUM_DATA:
       const fetChedForum = action.forum;
       return {
         ...state,
-        byId: byIdObj(fetChedForum),
+        byId: byIdObjCreator(fetChedForum),
           allIds: fetChedForum.map((forum) => forum._id).reverse(),
       };
     case ADD_POST:
@@ -71,6 +67,32 @@ const forum = (state = initialState, action) => {
             likes,
           }
         }
+      };
+    case ADD_COMMENT:
+      const { comment } = action;
+        return {
+          ...state,
+          byId: {
+            ...state.byId,
+            [comment.postId]: {
+              ...state.byId[comment.postId],
+              comments: [comment._id, ...state.byId[comment.postId].comments],
+            },
+          },
+        };
+    case DELETE_COMMENT:
+      const { data } = action;
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [data.postId]: {
+            ...state.byId[data.postId],
+            comments: state.byId[data.postId].comments.filter(
+              (id) => id !== data.commentId
+            ),
+          },
+        },
       };
     default:
       return {

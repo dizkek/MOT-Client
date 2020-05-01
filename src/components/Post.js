@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './components.module.css';
+import CommentContainer from '../containers/CommentContainer';
 import { 
   LikeTwoTone, 
   CommentOutlined, 
@@ -7,7 +7,7 @@ import {
   EditOutlined, 
   SaveOutlined 
 } from '@ant-design/icons';
-import CommentContainer from '../containers/CommentContainer';
+import styles from './components.module.css';
 
 const Post = ({ 
   post, 
@@ -16,11 +16,8 @@ const Post = ({
   onClickModifyPost, 
   teamId, 
   onClickDeletePost,
-  setIsCommenting,
-  isCommenting,
-  comment,
-  setComment,
 }) => {
+  const [isCommenting, setIsCommenting] = useState('');
   const [isModifying, setIsModifying] = useState(false);
   const [content, setContent] = useState(post.content);
   const isLiked = () => {
@@ -66,13 +63,6 @@ const Post = ({
             style={{ fontSize: '23px', marginRight: '10px' }} 
             onClick={() => setIsCommenting(!isCommenting)}
           />
-          {isCommenting && (
-            <input
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              placeholder="Write comment"
-            />
-          )}
         </div>
         {userId === post.poster && (
           <div className={styles.EditBox}>
@@ -98,7 +88,13 @@ const Post = ({
             />
           </div>
         )}
-        {isCommenting && <CommentContainer />} 
+        {isCommenting && (
+          <CommentContainer
+            isCommenting={isCommenting} 
+            post={post} 
+            postId={post._id}
+          />
+        )}
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
 import React, { useState, } from 'react';
 import Button from './Button';
-import styles from './components.module.css';
 import { useHistory } from "react-router-dom";
 import { COLOR } from '../constants/style';
+import styles from './components.module.css';
 
 const RegisterForm = ({ onCLickRegisterTeam, email }) => {
   const [teamName, setTeamName] = useState('');

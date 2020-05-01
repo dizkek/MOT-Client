@@ -1,3 +1,4 @@
+import { byIdObjCreator } from '../lib/reducerHelper';
 import { 
   FETCH_TEAM_DATA, 
   ADD_NOTICE_REQUEST, 
@@ -22,13 +23,6 @@ const initialState = {
   _id: null,
 };
 
-const byIdObj = (entity) => {
-  return entity.reduce((acc, current) => {
-    acc[current._id] = current;
-    return acc;
-  }, {});;
-};
-
 const team = (state = initialState, action) => {
   switch(action.type) {
     case FETCH_TEAM_DATA:
@@ -36,7 +30,7 @@ const team = (state = initialState, action) => {
       return {
         ...action.team,
         members: {
-          byId: byIdObj(members),
+          byId: byIdObjCreator(members),
           allIds: members.map((member) => member._id),
         },
         forum: forum.map((forum) => forum._id).reverse(),
@@ -51,7 +45,7 @@ const team = (state = initialState, action) => {
       return {
         ...state,
         members: {
-          byId: byIdObj(fetchedMembers),
+          byId: byIdObjCreator(fetchedMembers),
           allIds: fetchedMembers.map((member) => member._id),
         },
       };
@@ -69,7 +63,7 @@ const team = (state = initialState, action) => {
       const fetChedForum = action.forum;
       return {
         ...state,
-        forum: fetChedForum.map((forum) => forum._id).reverse()
+        forum: fetChedForum.map((forum) => forum._id).reverse(),
       };
     case LOG_OUT:
       return {

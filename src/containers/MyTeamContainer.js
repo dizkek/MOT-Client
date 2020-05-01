@@ -1,12 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import NoticeContainer from './NoticeContainer';
 import MembersContainer from './MembersContainer';
 import FormationContainer from './FormationContainer';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import styles from './containers.module.css';
 import ForumContainer from './ForumContainer';
+import styles from './containers.module.css';
 
 const MyTeamContainer = ({ match }) => {
   const { user } = useSelector((state) => state);

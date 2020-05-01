@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from './components.module.css';
 import { Draggable } from 'react-beautiful-dnd';
+import styles from './components.module.css';
 
 const Player = ({ player, index }) => {
   return (
@@ -10,7 +10,11 @@ const Player = ({ player, index }) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
-          className={snapshot.isDragging? styles.ListPlayerBoxDragging : styles.ListPlayerBox}
+          className={
+            snapshot.isDragging
+              ? styles.ListPlayerBoxDragging
+              : styles.ListPlayerBox
+          }
         >
           {player.name}
         </div>

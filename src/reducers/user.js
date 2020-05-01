@@ -1,3 +1,4 @@
+import { byIdObjCreator } from '../lib/reducerHelper';
 import { FETCH_USER_DATA, ADD_TEAM, LOG_OUT, LOG_IN_SUCCESS } from '../constants';
 
 const initialState = {
@@ -12,16 +13,11 @@ const user = (state = initialState, action) => {
   switch(action.type) {
     case FETCH_USER_DATA:
       const { teams } = action.user;
-      const teamsObj = teams.reduce((acc, current) => {
-        acc[current._id] = current;
-        return acc;
-      }, {});
-
       return {
         ...state,
         ...action.user,
         teams: {
-          byId: teamsObj,
+          byId: byIdObjCreator(teams),
           allIds: teams.map((team) => team._id),
         },
       };

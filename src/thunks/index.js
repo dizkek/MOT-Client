@@ -21,6 +21,9 @@ import {
   updateLikes,
   updatePost,
   deletePost,
+  fetchCommnets,
+  addComment,
+  deleteComment,
 } from '../actions';
 
 export const requestLogIn = (data, history) => async (dispatch) => {
@@ -121,7 +124,7 @@ export const requestAddNotice = (data) => async (dispatch) => {
     dispatch({ type: LOADING_ON });
     const { token, id } = data;
     const response = await fetch(
-      `${process.env.REACT_APP_API}/teams/myteam/${id}/notice`,
+      `${process.env.REACT_APP_API}/teams/${id}/notice`,
       {
         method: 'POST',
         headers: { 
@@ -147,7 +150,7 @@ export const requestMembersData = (id) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem('token');
     const response = await fetch(
-      `${process.env.REACT_APP_API}/teams/myteam/${id}/members`, 
+      `${process.env.REACT_APP_API}/teams/${id}/members`, 
       {
         method: 'GET',
         headers: { 
@@ -169,7 +172,7 @@ export const requestTeamData = (id) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem('token');
     const response = await fetch(
-      `${process.env.REACT_APP_API}/teams/myteam/${id}`,
+      `${process.env.REACT_APP_API}/teams/${id}`,
       {
         method: 'GET',
         headers: { 
@@ -192,7 +195,7 @@ export const requestSaveFormation = (data, id, history) => async (dispatch) => {
     dispatch({ type: LOADING_ON });
     const token = window.localStorage.getItem('token');
     const response = await fetch(
-      `${process.env.REACT_APP_API}/teams/myteam/${id}/formation`,
+      `${process.env.REACT_APP_API}/teams/${id}/formation`,
       {
         method: 'POST',
         headers: { 
@@ -217,7 +220,7 @@ export const requestFormationData = (teamId) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem('token');
     const response = await fetch(
-      `${process.env.REACT_APP_API}/teams/myteam/${teamId}/formation`,
+      `${process.env.REACT_APP_API}/teams/${teamId}/formation`,
       {
         method: 'GET',
         headers: { 
@@ -238,7 +241,7 @@ export const requestAddPost = (data) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem('token');
     const response = await fetch(
-      `${process.env.REACT_APP_API}/teams/myteam/${data.teamId}/posts`,
+      `${process.env.REACT_APP_API}/teams/${data.teamId}/posts`,
       {
         method: 'POST',
         headers: { 
@@ -260,7 +263,7 @@ export const requestForumData = (teamId) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem('token');
     const response = await fetch(
-      `${process.env.REACT_APP_API}/teams/myteam/${teamId}/posts`,
+      `${process.env.REACT_APP_API}/teams/${teamId}/posts`,
       {
         method: 'GET',
         headers: { 
@@ -269,8 +272,9 @@ export const requestForumData = (teamId) => async (dispatch) => {
         },
       }
     );
-    const { result, forum } = await response.json();
+    const { result, forum, comments } = await response.json();
     if (result !== 'ok') throw Error();
+    dispatch(fetchCommnets(comments));
     dispatch(fetchForumData(forum));
   } catch (error) {
     alert('포럼 데이터 가져오기가 실패했습니다.');
@@ -281,7 +285,7 @@ export const sendLikeRequest = (teamId, postId, userId) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem('token');
     const response = await fetch(
-      `${process.env.REACT_APP_API}/teams/myteam/${teamId}/posts/${postId}/like`,
+      `${process.env.REACT_APP_API}/teams/${teamId}/posts/${postId}/like`,
       {
         method: 'POST',
         headers: { 
@@ -292,7 +296,6 @@ export const sendLikeRequest = (teamId, postId, userId) => async (dispatch) => {
       }
     );
     const { result, likes } = await response.json();
-
     if (result !== 'ok') throw Error();
     const data = { likes, postId }
     dispatch(updateLikes(data));
@@ -305,7 +308,7 @@ export const requestModifyPost = (data) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem('token');
     const response = await fetch(
-      `${process.env.REACT_APP_API}/teams/myteam/${data.teamId}/posts/${data.id}`,
+      `${process.env.REACT_APP_API}/teams/${data.teamId}/posts/${data.id}`,
       {
         method: 'PUT',
         headers: { 
@@ -316,7 +319,6 @@ export const requestModifyPost = (data) => async (dispatch) => {
       }
     );
     const { result } = await response.json();
-
     if (result !== 'ok') throw Error();
     dispatch(updatePost(data));
   } catch (error) {
@@ -328,7 +330,7 @@ export const requestDeletePost = (data) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem('token');
     const response = await fetch(
-      `${process.env.REACT_APP_API}/teams/myteam/${data.teamId}/posts/${data.id}`,
+      `${process.env.REACT_APP_API}/teams/${data.teamId}/posts/${data.id}`,
       {
         method: 'DELETE',
         headers: { 
@@ -339,9 +341,56 @@ export const requestDeletePost = (data) => async (dispatch) => {
       }
     );
     const { result } = await response.json();
-
     if (result !== 'ok') throw Error();
     dispatch(deletePost(data.id));
+  } catch (error) {
+    alert('삭제에 실패했습니다. 다시 시도해 주세요.');
+  }
+};
+
+export const requestAddComment = (data) => async (dispatch) => {
+  try {
+    const token = window.localStorage.getItem('token');
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/teams/posts/${data.postId}/comment`,
+      {
+        method: 'POST',
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    const { result, comment } = await response.json();
+    if (result !== 'ok') throw Error();
+    dispatch(addComment(comment));
+  } catch (error) {
+    alert('등록에 실패했습니다. 다시 시도해 주세요.');
+  }
+};
+
+export const requestDeleteComment = (commentId, postId) => async (dispatch) => {
+  try {
+    const token = window.localStorage.getItem('token');
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/teams/posts/${postId}/comment/${commentId}`,
+      {
+        method: 'DELETE',
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    const { result } = await response.json();
+    if (result !== 'ok') throw Error();
+    const data = {
+      commentId,
+      postId
+    };
+    
+    dispatch(deleteComment(data));
   } catch (error) {
     alert('삭제에 실패했습니다. 다시 시도해 주세요.');
   }

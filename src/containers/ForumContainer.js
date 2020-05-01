@@ -1,8 +1,14 @@
 import React, { useEffect } from 'react';
-import Forum from '../components/Forum';
 import { useDispatch, useSelector } from 'react-redux';
-import { requestAddPost, requestForumData, sendLikeRequest, requestModifyPost, requestDeletePost } from '../thunks';
+import Forum from '../components/Forum';
 import debounce from 'lodash/debounce';
+import { 
+  requestAddPost, 
+  requestForumData, 
+  sendLikeRequest, 
+  requestModifyPost, 
+  requestDeletePost 
+} from '../thunks';
 
 const ForumContainer = ({ teamId }) => {
   const dispatch = useDispatch();
@@ -16,7 +22,6 @@ const ForumContainer = ({ teamId }) => {
   const onClickModifyPost = (data) => {
     dispatch(requestModifyPost(data))
   };
-
 
   const requestNewPost = (data) => {
     dispatch(requestAddPost(data));
