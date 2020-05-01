@@ -22,7 +22,7 @@ const Header = memo(({ teamname, name, admin, id }) => {
             <Link to="">Match</Link>
           </li>
           <li>
-            <Link to="">Threads</Link>
+            <Link to={`/teams/myteam/${teamname}/forum`}>Forum</Link>
           </li>
           <li>
             <Link to="">Finance</Link>

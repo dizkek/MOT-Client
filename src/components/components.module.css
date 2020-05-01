@@ -207,7 +207,7 @@
   position: relative;
 }
 
-.NoticeContainer {
+.NoticeContainer, .ForumContainer {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -472,4 +472,100 @@
   font-weight: 500;
   text-align: center;
   cursor: pointer;
+}
+
+.PostBox img {
+  width: 50px;
+}
+
+.PostBox input {
+  font-size: 20px;
+  width: 85%;
+  background-color: #F6F7F8;
+  border: 0.5px solid #EDEFF1;
+  border-radius: 5px;
+  outline: none;
+}
+
+.PostBox input:hover {
+  background-color: white;
+  border: 0.5px solid #FF4641;
+}
+
+.ThreadBox {
+  background-color: white;
+  width: 70%;
+  display: flex;
+  border: 1px solid #CCCCCC;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  flex-direction: column;
+  margin: 15px;
+}
+
+.ThreadBox:hover {
+  border: 1.5px solid #635b5b;
+}
+
+.LikeBox {
+  background-color: #F8F9FA;
+  grid-area: 1 / 1 / 2 / 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.ContentBox {
+  grid-area: 1 / 2 / 2 / 11;
+  padding: 10px;
+}
+
+.ContentBox p {
+  font-size: 15px;
+}
+
+.ContentBox div {
+  display: flex;
+}
+
+.CommentInputBox {
+  margin-bottom: 10px;
+}
+
+.CommentInputBox input {
+  width: 100%;
+}
+
+.CommentBox {
+  border-top: 1.5px solid grey;
+}
+
+.CommentBox {
+  padding: 5px
+}
+
+.EditBox {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.contentInput:disabled {
+  background: white;
+  outline: none;
+  width: 100%;
+  border: 0px solid;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.contentInput {
+  width: 100%;
+  font-weight: 500;
+  font-size: 20px;
 }

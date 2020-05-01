@@ -1,10 +1,11 @@
-import { FETCH_USER_DATA, ADD_TEAM, LOG_OUT } from '../constants';
+import { FETCH_USER_DATA, ADD_TEAM, LOG_OUT, LOG_IN_SUCCESS } from '../constants';
 
 const initialState = {
   name: null,
   email: null,
   teams: {},
   password: null,
+  isLoggedIn: false,
 };
 
 const user = (state = initialState, action) => {
@@ -13,10 +14,11 @@ const user = (state = initialState, action) => {
       const { teams } = action.user;
       const teamsObj = teams.reduce((acc, current) => {
         acc[current._id] = current;
-        return acc
+        return acc;
       }, {});
 
       return {
+        ...state,
         ...action.user,
         teams: {
           byId: teamsObj,
@@ -34,6 +36,11 @@ const user = (state = initialState, action) => {
           byId,
           allIds: [...allIds, team._id],
         },
+      };
+    case LOG_IN_SUCCESS:
+      return {
+        ...state,
+        isLoggedIn: true,
       };
     case LOG_OUT:
       return {

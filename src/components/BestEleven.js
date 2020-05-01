@@ -8,7 +8,7 @@ const BestEleven = ({ data, setData, onClickDisplayTactic }) => {
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
 
-    if(!destination) {
+    if (!destination) {
       return;
     }
 

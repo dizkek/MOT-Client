@@ -11,7 +11,7 @@ import { useHistory } from "react-router-dom";
 
 const AuthContainer = () => {
   const dispatch = useDispatch();
-  const { isLoading } = useSelector((state) => state.render);
+  const { isLoading } = useSelector((state) => state.loading);
   let history = useHistory();
   
   const onClickLogIn = (data, history) => {

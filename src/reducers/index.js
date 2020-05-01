@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
-import render from './render';
+import loading from './loading';
 import user from './user';
 import team from './team';
+import forum from './forum';
 
 export default combineReducers({
-  render,
+  loading,
   user,
   team,
+  forum,
 });

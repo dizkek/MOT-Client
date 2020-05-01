@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './components.module.css';
 import Button from '../components/Button';
 import debounce from 'lodash/debounce';
-
+import { COLOR } from '../constants/style'
 const Members = ({ members, id, onClickSendInvitation, teamname }) => {
   const [email, setEmail] = useState('');
   const { byId, allIds } = members;
@@ -36,7 +36,7 @@ const Members = ({ members, id, onClickSendInvitation, teamname }) => {
           />
           <Button 
             onClickHandler={debouncedSubmit} 
-            style={{ margin: 0, backgroundColor: '#232D41' }}
+            style={{ margin: 0, backgroundColor: COLOR.navy }}
           >
             Send
           </Button>

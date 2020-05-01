@@ -6,6 +6,7 @@ import MembersContainer from './MembersContainer';
 import FormationContainer from './FormationContainer';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import styles from './containers.module.css';
+import ForumContainer from './ForumContainer';
 
 const MyTeamContainer = ({ match }) => {
   const { user } = useSelector((state) => state);
@@ -38,6 +39,10 @@ const MyTeamContainer = ({ match }) => {
         <Route 
           path={`/teams/myteam/${teamname}/formation`}
           render={(props) => <FormationContainer {...props} id={teamId} />}
+        />
+        <Route
+          path={`/teams/myteam/${teamname}/forum`}
+          render={(props) => <ForumContainer {...props} teamId={teamId} />}
         />
         <Route
           path={`/teams/myteam/${teamname}`}

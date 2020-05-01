@@ -7,6 +7,11 @@ import {
   FETCH_MEMBERS_DATA,
   SAVE_FORMATION,
   UPDATE_FORMATION,
+  ADD_POST,
+  FETCH_FORUM_DATA,
+  UPDATE_LIKES,
+  UPDATE_POST,
+  DELETE_POST,
 } from '../constants';
 
 export const fetchUserData = (user) => ({ type: FETCH_USER_DATA, user });
@@ -17,3 +22,8 @@ export const proceedLogOut = () => ({ type: LOG_OUT });
 export const fetchMembersData = (members) => ({ type: FETCH_MEMBERS_DATA, members });
 export const saveFormation = (data) => ({ type: SAVE_FORMATION, data });
 export const updateFormation = (formation) => ({ type: UPDATE_FORMATION, formation });
+export const addPost = (post) => ({ type: ADD_POST, post });
+export const updatePost = (data) => ({ type: UPDATE_POST, data });
+export const deletePost = (postId) => ({ type: DELETE_POST, postId });
+export const fetchForumData = (forum) => ({ type: FETCH_FORUM_DATA, forum });
+export const updateLikes = (data) => ({ type: UPDATE_LIKES, data });

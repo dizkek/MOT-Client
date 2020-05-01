@@ -16,6 +16,11 @@ import {
   getTeamData,
   saveFormation,
   updateFormation,
+  addPost,
+  fetchForumData,
+  updateLikes,
+  updatePost,
+  deletePost,
 } from '../actions';
 
 export const requestLogIn = (data, history) => async (dispatch) => {
@@ -226,5 +231,118 @@ export const requestFormationData = (teamId) => async (dispatch) => {
     dispatch(updateFormation(formation));
   } catch (error) {
     alert('포메이션 데이터 가져오기가 실패했습니다.');
+  }
+};
+
+export const requestAddPost = (data) => async (dispatch) => {
+  try {
+    const token = window.localStorage.getItem('token');
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/teams/myteam/${data.teamId}/posts`,
+      {
+        method: 'POST',
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    const { result, newPost } = await response.json();
+    if (result !== 'ok') throw Error();
+    dispatch(addPost(newPost));
+  } catch (error) {
+    alert('새글 작성이 실패했습니다. 다시작성해주세요');
+  }
+};
+
+export const requestForumData = (teamId) => async (dispatch) => {
+  try {
+    const token = window.localStorage.getItem('token');
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/teams/myteam/${teamId}/posts`,
+      {
+        method: 'GET',
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    const { result, forum } = await response.json();
+    if (result !== 'ok') throw Error();
+    dispatch(fetchForumData(forum));
+  } catch (error) {
+    alert('포럼 데이터 가져오기가 실패했습니다.');
+  }
+};
+
+export const sendLikeRequest = (teamId, postId, userId) => async (dispatch) => {
+  try {
+    const token = window.localStorage.getItem('token');
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/teams/myteam/${teamId}/posts/${postId}/like`,
+      {
+        method: 'POST',
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId }),
+      }
+    );
+    const { result, likes } = await response.json();
+
+    if (result !== 'ok') throw Error();
+    const data = { likes, postId }
+    dispatch(updateLikes(data));
+  } catch (error) {
+    alert('좋아요 요청이 실패했습니다. 다시 시도해 주세요.');
+  }
+};
+
+export const requestModifyPost = (data) => async (dispatch) => {
+  try {
+    const token = window.localStorage.getItem('token');
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/teams/myteam/${data.teamId}/posts/${data.id}`,
+      {
+        method: 'PUT',
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    const { result } = await response.json();
+
+    if (result !== 'ok') throw Error();
+    dispatch(updatePost(data));
+  } catch (error) {
+    alert('수정에 실패했습니다. 다시 시도해 주세요.');
+  }
+};
+
+export const requestDeletePost = (data) => async (dispatch) => {
+  try {
+    const token = window.localStorage.getItem('token');
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/teams/myteam/${data.teamId}/posts/${data.id}`,
+      {
+        method: 'DELETE',
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    const { result } = await response.json();
+
+    if (result !== 'ok') throw Error();
+    dispatch(deletePost(data.id));
+  } catch (error) {
+    alert('삭제에 실패했습니다. 다시 시도해 주세요.');
   }
 };

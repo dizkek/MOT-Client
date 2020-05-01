@@ -13,7 +13,7 @@ import { Spin } from 'antd';
 const FormationContainer = ({ match, id }) => {
   const dispatch = useDispatch();
   const [isChanging, setIsChanging] = useState(false);
-  const { isLoading } = useSelector((state) => state.render);
+  const { isLoading } = useSelector((state) => state.loading);
   const { members, admin } = useSelector((state) => state.team);
   const { user } = useSelector((state) => state);
   const { formation } = useSelector((state) => state.team);

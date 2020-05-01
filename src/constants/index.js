@@ -20,11 +20,12 @@ export const REG_PATTERNS = {
 
 export const TEAM_ADD_REQUEST = 'TEAM_ADD_REQUEST';
 export const ADD_TEAM = 'ADD_TEAM';
-export const COLOR = {
-  navy: '#232d41',
-};
-
 export const ADD_NOTICE_REQUEST = 'ADD_NOTICE_REQUEST';
 export const FETCH_MEMBERS_DATA = 'FETCH_MEMBERS_DATA';
 export const SAVE_FORMATION = 'SAVE_FORMATION';
 export const UPDATE_FORMATION = 'UPDATE_FORMATION';
+export const ADD_POST = 'ADD_POST';
+export const FETCH_FORUM_DATA = 'FETCH_FORUM_DATA';
+export const UPDATE_LIKES = 'UPDATE_LIKES';
+export const UPDATE_POST ='UPDATE_POST';
+export const DELETE_POST = 'DELETE_POST';

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './components.module.css';
 import Button from './Button';
 import debounce from 'lodash/debounce';
+import { COLOR } from '../constants/style';
 
 const Notice = ({ user, admin, notices, onClickAddNotice, teamname, id }) => {
   const [notice, setNotice] = useState('');
@@ -38,7 +39,7 @@ const Notice = ({ user, admin, notices, onClickAddNotice, teamname, id }) => {
                 padding: '5px', 
                 fontSize: 15, 
                 margin: 0, 
-                backgroundColor: '#232D41' 
+                backgroundColor: COLOR.navy 
               }}
               onClickHandler={debouncedSubmit}
             >
@@ -47,7 +48,7 @@ const Notice = ({ user, admin, notices, onClickAddNotice, teamname, id }) => {
           </div>
         )}
         <span>Notice</span>
-        {notices.slice(0).reverse().map((notice, i) => 
+        {notices.length > 0 && notices.slice(0).reverse().map((notice, i) => 
           <div className={styles.NoticeBox} key={notice + i}>
             <div className={styles.NoticeTextBox}>{notice.content}</div>
             <div className={styles.TimeBox}>{notice.date.slice(0, 11)}</div>

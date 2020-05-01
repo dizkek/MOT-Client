@@ -4,35 +4,42 @@ import {
   FETCH_MEMBERS_DATA, 
   LOG_OUT, 
   SAVE_FORMATION,
-  UPDATE_FORMATION,  
+  UPDATE_FORMATION,
+  FETCH_FORUM_DATA,
 } from '../constants';
 
 const initialState = {
   name: null,
   members: {},
   formation: [],
-  forum: [],
+  forum: {
+    byId: {},
+    allIds: [],
+  },
   finance: [],
   notices: [],
   admin: null,
   _id: null,
 };
 
+const byIdObj = (entity) => {
+  return entity.reduce((acc, current) => {
+    acc[current._id] = current;
+    return acc;
+  }, {});;
+};
+
 const team = (state = initialState, action) => {
   switch(action.type) {
     case FETCH_TEAM_DATA:
-      let { members } = action.team;
-      let membersObj = members.reduce((acc, current) => {
-        acc[current._id] = current;
-        return acc;
-      }, {});
-
+      const { members, forum } = action.team;
       return {
         ...action.team,
         members: {
-          byId: membersObj,
+          byId: byIdObj(members),
           allIds: members.map((member) => member._id),
         },
+        forum: forum.map((forum) => forum._id).reverse(),
       };
     case ADD_NOTICE_REQUEST:
       return {
@@ -40,17 +47,12 @@ const team = (state = initialState, action) => {
         notices: [...state.notices, action.notice],
       };
     case FETCH_MEMBERS_DATA:
-      const updaTedMembers = action.members;
-      const updaTedMembersObj = updaTedMembers.reduce((acc, current) => {
-        acc[current._id] = current;
-        return acc;
-      }, {});
-
+      const fetchedMembers = action.members;
       return {
         ...state,
         members: {
-          byId: updaTedMembersObj,
-          allIds: updaTedMembers.map((member) => member._id),
+          byId: byIdObj(fetchedMembers),
+          allIds: fetchedMembers.map((member) => member._id),
         },
       };
     case SAVE_FORMATION:
@@ -62,6 +64,12 @@ const team = (state = initialState, action) => {
       return {
         ...state,
         formation: action.formation,
+      };
+    case FETCH_FORUM_DATA:
+      const fetChedForum = action.forum;
+      return {
+        ...state,
+        forum: fetChedForum.map((forum) => forum._id).reverse()
       };
     case LOG_OUT:
       return {

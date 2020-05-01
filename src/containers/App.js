@@ -7,7 +7,7 @@ import MyTeamContainer from './MyTeamContainer';
 import Join from '../components/Join';
 
 const App = () => {
-  const { isLoggedIn } = useSelector((state) => state.render);
+  const { isLoggedIn } = useSelector((state) => state.user);
   const { teams } = useSelector((state) => state.user);
 
   const chekPermission = (match) => {

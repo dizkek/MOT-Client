@@ -12,7 +12,7 @@ const TeamContainer = ({ match }) => {
   const dispatch = useDispatch();
   const { email } = useSelector((state) => state.user);
   const { teams } = useSelector((state) => state.user);
-  const { isLoading } = useSelector((state) => state.render);
+  const { isLoading } = useSelector((state) => state.loading);
   const history = useHistory();
 
   const onCLickRegisterTeam = (teamName, email, history) => {
