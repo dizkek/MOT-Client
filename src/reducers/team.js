@@ -7,6 +7,7 @@ import {
   SAVE_FORMATION,
   UPDATE_FORMATION,
   FETCH_FORUM_DATA,
+  SAVE_MATCH,
 } from '../constants';
 
 const initialState = {
@@ -21,6 +22,7 @@ const initialState = {
   notices: [],
   admin: null,
   _id: null,
+  match: [],
 };
 
 const team = (state = initialState, action) => {
@@ -64,6 +66,11 @@ const team = (state = initialState, action) => {
       return {
         ...state,
         forum: fetChedForum.map((forum) => forum._id).reverse(),
+      };
+    case SAVE_MATCH:
+      return {
+        ...state,
+        match: [action.match],
       };
     case LOG_OUT:
       return {

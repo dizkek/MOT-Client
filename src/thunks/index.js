@@ -24,6 +24,7 @@ import {
   fetchCommnets,
   addComment,
   deleteComment,
+  saveMatch,
 } from '../actions';
 
 export const requestLogIn = (data, history) => async (dispatch) => {
@@ -393,5 +394,30 @@ export const requestDeleteComment = (commentId, postId) => async (dispatch) => {
     dispatch(deleteComment(data));
   } catch (error) {
     alert('삭제에 실패했습니다. 다시 시도해 주세요.');
+  }
+};
+
+export const requestSaveMatch = (data) => async (dispatch) => {
+  try {
+    dispatch({ type: LOADING_ON });
+    const { match, teamId } = data;
+    const token = window.localStorage.getItem('token');
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/teams/${teamId}/match`,
+      {
+        method: 'POST',
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(match),
+      }
+    );
+    const { result } = await response.json();
+    dispatch(saveMatch(match));
+    if (result !== 'ok') throw Error();
+    dispatch({ type: LOADING_OFF });
+  } catch (error) {
+    alert('저장이 실패했습니다. 다시 시도해 주세요.');
   }
 };

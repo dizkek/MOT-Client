@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
-import styles from './components.module.css';
-import Alogo from '../images/Alogo.jpg';
 import Button from './Button';
 import { Link } from 'react-router-dom';
+import Alogo from '../images/Alogo.jpg';
+import styles from './components.module.css';
 
 const Header = memo(({ teamname, name, admin, id }) => {
   return (
@@ -19,7 +19,7 @@ const Header = memo(({ teamname, name, admin, id }) => {
             <Link to={`/teams/myteam/${teamname}/formation`}>Formation</Link>
           </li>
           <li>
-            <Link to="">Match</Link>
+            <Link to={`/teams/myteam/${teamname}/match`}>Match</Link>
           </li>
           <li>
             <Link to={`/teams/myteam/${teamname}/forum`}>Forum</Link>

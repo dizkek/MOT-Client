@@ -146,7 +146,7 @@
 .HomeContainer, .JoinContainer {
   background-color: #EAF4F4;
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 100px);
 }
 
 .Header {
@@ -570,4 +570,85 @@
 
 .CommentText {
   margin: 0 15px 0 0;
+}
+
+.MatchMain {
+  margin: 0 auto;
+  width: 70%;
+  height: calc(100vh - 100px);
+  position: relative;
+}
+
+.MatchContainer {
+  margin: 0 auto;
+  width: 70%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+
+
+.MatchTitle {
+  background-color: blue;
+  color: blue;
+  width: 100%;
+  font-size: 100px;
+}
+
+.MatchHeader {
+  color: black;
+  width: 100%;
+  font-size: 30px;
+  font-family: 'Black Han Sans', sans-serif;
+  text-align: center;
+  border-bottom: 30px solid #003b58;
+}
+
+.MatchDate {
+  width: 75%;
+  border-bottom: 5px solid #FF4641;
+  font-size: 23px;
+  font-family: 'Manrope', sans-serif;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.MatchVersus {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+}
+
+.MatchSettingBox {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.MatchSettingBox input {
+  margin-left: 15px;
+  margin-right: 15px;
+  width: 130px;
+  outline: none;
+  border: none;
+}
+
+.MatchSettingBox div {
+  margin-bottom: 15px;
+  margin-top: 70px;
+}
+
+.MatchDateBox, .MatchLocationBox {
+  display: flex;
+  justify-content: center;
+}
+
+.MatchSaveInstruction {
+  text-align: center;
+  font-weight: 700px;
 }
