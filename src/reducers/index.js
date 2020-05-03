@@ -4,6 +4,7 @@ import user from './user';
 import team from './team';
 import forum from './forum';
 import comments from './comments';
+import finances from './finances';
 
 export default combineReducers({
   loading,
@@ -11,4 +12,5 @@ export default combineReducers({
   team,
   forum,
   comments,
+  finances,
 });

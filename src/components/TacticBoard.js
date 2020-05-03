@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react';
-import styles from './components.module.css';
-import halfField from '../images/half field.png';
 import { useHistory } from "react-router-dom";
+import halfField from '../images/half field.png';
+import { ABSOLUTE } from '../constants/style';
+import styles from './components.module.css';
 
 const TacticBoard = ({ regularIds = [], allPlayers, onClickSaveFormation, id }) => {
   const [currentPlayer, setCurrent] = useState('');
@@ -29,7 +30,7 @@ const TacticBoard = ({ regularIds = [], allPlayers, onClickSaveFormation, id }) 
   const done = (e) => {
     e.stopPropagation();
     e.preventDefault();
-    currentPlayer.style.position = 'absolute';
+    currentPlayer.style.position = ABSOLUTE;
     posX.current = e.pageX;
     posY.current = e.pageY;
     currentPlayer.style.marginLeft = `${posX.current + distX.current}px`;

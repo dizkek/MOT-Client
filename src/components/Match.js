@@ -52,13 +52,16 @@ const Match = ({ getMatchData, teamId, match, teamName, userId, admin, isLoading
               Change
             </Button>
           ) : (
-            <MatchSave getMatchData={getMatchData} teamId={teamId} setIsModifying={setIsModifying}/>
+            <MatchSave 
+              getMatchData={getMatchData} 
+              teamId={teamId} 
+              setIsModifying={setIsModifying}
+            />
           )}
         </div>
       </main>
     );
  
-
   return (
     <main className={styles.MatchMain}>
       <div className={styles.MatchContainer}>
@@ -74,12 +77,13 @@ const Match = ({ getMatchData, teamId, match, teamName, userId, admin, isLoading
               <h2>{match[0].opponent}</h2>
             </div>
             {admin === userId && (
-              <Button style={{ 
-                marginTop: 0, 
-                marginBottom: '10px', 
-                padding: '4px', 
-                backgroundColor: 
-                COLOR.navy 
+              <Button 
+                style={{ 
+                  marginTop: 0, 
+                  marginBottom: '10px', 
+                  padding: '4px', 
+                  backgroundColor: 
+                  COLOR.navy 
                 }}
                 onClickHandler={() => setIsModifying(true)}
               >
@@ -94,7 +98,11 @@ const Match = ({ getMatchData, teamId, match, teamName, userId, admin, isLoading
             />
           </>         
         ) : (
-          <MatchSave getMatchData={getMatchData} teamId={teamId} setIsModifying={setIsModifying}/>
+          <MatchSave 
+            getMatchData={getMatchData} 
+            teamId={teamId} 
+            setIsModifying={setIsModifying}
+          />
         )}
       </div>
     </main>

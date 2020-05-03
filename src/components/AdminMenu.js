@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './components.module.css';
 
-
 const AdminMenu = ({ match }) => {
   return (
     <div className={styles.AdminMenu}>

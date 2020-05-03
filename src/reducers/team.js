@@ -19,7 +19,7 @@ const initialState = {
     byId: {},
     allIds: [],
   },
-  finance: [],
+  finances: [],
   notices: [],
   admin: null,
   _id: null,

@@ -48,12 +48,16 @@ const Notice = ({ user, admin, notices, onClickAddNotice, teamname, id }) => {
           </div>
         )}
         <span>Notice</span>
-        {notices.length > 0 && notices.slice(0).reverse().map((notice, i) => 
-          <div className={styles.NoticeBox} key={notice + i}>
-            <div className={styles.NoticeTextBox}>{notice.content}</div>
-            <div className={styles.TimeBox}>{notice.date.slice(0, 11)}</div>
-          </div>
-        )}
+        {notices.length > 0 && 
+          notices
+            .slice(0)
+            .reverse()
+            .map((notice, i) => (
+              <div className={styles.NoticeBox} key={notice + i}>
+                <div className={styles.NoticeTextBox}>{notice.content}</div>
+                <div className={styles.TimeBox}>{notice.date.slice(0, 11)}</div>
+              </div>
+            ))}
       </div>
     </main>
   );

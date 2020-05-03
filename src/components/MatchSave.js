@@ -25,7 +25,7 @@ const MatchSave = ({ getMatchData, teamId, setIsModifying }) => {
           opponent,
           location: [lat, lng],
         },
-        teamId
+        teamId,
       };
 
       await getMatchData(data);
@@ -64,7 +64,7 @@ const MatchSave = ({ getMatchData, teamId, setIsModifying }) => {
           placeholder="상대팀 이름"
           required
         />
-         <input
+        <input
           type="text"
           value={location}
           placeholder="장소이름"

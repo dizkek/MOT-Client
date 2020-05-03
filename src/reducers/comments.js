@@ -1,5 +1,5 @@
 import { byIdObjCreator } from '../lib/reducerHelper';
-import { FETCH_COMMENTS, ADD_COMMENT, DELETE_COMMENT } from '../constants';
+import { FETCH_COMMENTS, ADD_COMMENT, DELETE_COMMENT, LOG_OUT } from '../constants';
 
 const initialState = {
   byId: {},
@@ -19,7 +19,7 @@ const comments = (state = initialState, action) => {
       const { comment } = action;
       return {
         ...state,
-        byId: {
+        byIds: {
           ...state.byId,
           [comment._id]: comment,
         },
@@ -30,6 +30,10 @@ const comments = (state = initialState, action) => {
       return {
         ...state,
         allIds: state.allIds.filter((id) => id !== commentId),
+      };
+    case LOG_OUT:
+      return {
+        ...initialState,
       };
     default:
       return {

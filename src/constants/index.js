@@ -34,3 +34,5 @@ export const ADD_COMMENT = 'ADD_COMMENT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
 export const FETCH_MATCH = 'FETCH_MATCH';
 export const SAVE_MATCH = 'SAVE_MATCH';
+export const FETCH_FINANCE = 'FETCH_FINANCE';
+export const ADD_FINANCE = 'ADD_FINANCE';

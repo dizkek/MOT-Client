@@ -28,7 +28,8 @@ const Post = ({
     content,
     teamId,
     id: post._id,
-  }
+  };
+  
   const proceedModification = (data) => {
     setIsModifying(!isModifying);
     if (content === post.content) return;
@@ -41,10 +42,10 @@ const Post = ({
   };
 
   return (
-    <div className={styles.ThreadBox} >
+    <div className={styles.ThreadBox}>
       <div className={styles.LikeBox}>
         <LikeTwoTone 
-          style={{ fontSize: '30px', padding: '10px'}} 
+          style={{ fontSize: '30px', padding: '10px' }} 
           twoToneColor={!isLiked() ? true : false}
           onClick={() => onClickLikePost(post._id)}
         />
@@ -67,7 +68,7 @@ const Post = ({
         {userId === post.poster && (
           <div className={styles.EditBox}>
             {isModifying && (
-              <SaveOutlined 
+              <SaveOutlined
                 style={{ fontSize: '23px', marginRight: '10px' }} 
                 onClick={() => {
                   window.confirm('저장하시겠습니까?') 

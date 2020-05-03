@@ -572,7 +572,7 @@
   margin: 0 15px 0 0;
 }
 
-.MatchMain {
+.MatchMain, .FinanceMain {
   margin: 0 auto;
   width: 70%;
   height: calc(100vh - 100px);
@@ -587,8 +587,6 @@
   align-items: center;
   flex-direction: column;
 }
-
-
 
 .MatchTitle {
   background-color: blue;
@@ -651,4 +649,54 @@
 .MatchSaveInstruction {
   text-align: center;
   font-weight: 700px;
+}
+
+.FinanceContainer {
+  margin: 0 auto;
+  width: 85%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.FinanceButtonBox {
+  width: 40%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+}
+
+.FinanceButtonBox button {
+  margin: 0;
+}
+
+.FinanceInputBox {
+  margin-top: 30px;
+}
+
+.FinanceInputBox input{
+  margin-right: 20px;
+}
+
+.ChartBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.ChartButtonBox {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.ChartPrevBox, .ChartNextBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -7,6 +7,7 @@ import MembersContainer from './MembersContainer';
 import FormationContainer from './FormationContainer';
 import ForumContainer from './ForumContainer';
 import MatchContainer from './MatchContainer';
+import FinanceContainer from './FinanceContainer';
 import styles from './containers.module.css';
 
 const MyTeamContainer = ({ match }) => {
@@ -48,6 +49,10 @@ const MyTeamContainer = ({ match }) => {
         <Route
           path={`/teams/myteam/${teamname}/match`}
           render={(props) => <MatchContainer {...props} teamId={teamId} />}
+        />
+        <Route 
+          path={`/teams/myteam/${teamname}/finance`}
+          render={(props) => <FinanceContainer {...props} teamId={teamId}/>}
         />
         <Route
           path={`/teams/myteam/${teamname}`}

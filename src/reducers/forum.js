@@ -8,6 +8,7 @@ import {
   DELETE_POST,
   ADD_COMMENT,
   DELETE_COMMENT,
+  LOG_OUT,
 } from '../constants';
 
 const initialState = {
@@ -48,8 +49,8 @@ const forum = (state = initialState, action) => {
           [id]: {
             ...state.byId[id],
             content,
-          }
-        }
+          },
+        },
       };
     case DELETE_POST:
       return {
@@ -65,8 +66,8 @@ const forum = (state = initialState, action) => {
           [postId]: {
             ...state.byId[postId],
             likes,
-          }
-        }
+          },
+        },
       };
     case ADD_COMMENT:
       const { comment } = action;
@@ -93,6 +94,10 @@ const forum = (state = initialState, action) => {
             ),
           },
         },
+      };
+    case LOG_OUT:
+      return {
+        ...initialState,
       };
     default:
       return {

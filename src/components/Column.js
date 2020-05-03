@@ -2,6 +2,7 @@ import React from 'react';
 import Player from './Player';
 import { Droppable } from 'react-beautiful-dnd';
 import styles from './components.module.css';
+
 const Column = ({ column, players }) => {
   return (
     <div className={styles.ColumnContainer}>
