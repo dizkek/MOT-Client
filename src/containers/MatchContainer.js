@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Match from '../components/Match';
 import { useDispatch, useSelector } from 'react-redux';
-import { requestSaveMatch } from '../thunks';
+import { requestSaveMatch, requestMatchData } from '../thunks';
 
 const MatchContainer = ({ teamId }) => {
   const dispatch = useDispatch();
@@ -12,6 +12,14 @@ const MatchContainer = ({ teamId }) => {
   const getMatchData = (data) => {
     dispatch(requestSaveMatch(data));
   };
+
+  useEffect (() => {
+    const fetchData = async (teamId) => {
+      dispatch(requestMatchData(teamId));
+    };
+    
+    fetchData(teamId);
+  }, []);
 
   return (
     <Match 

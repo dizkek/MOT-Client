@@ -16,6 +16,7 @@ import {
   ADD_COMMENT,
   DELETE_COMMENT,
   SAVE_MATCH,
+  FETCH_MATCH,
 } from '../constants';
 
 export const fetchUserData = (user) => ({ type: FETCH_USER_DATA, user });
@@ -34,4 +35,5 @@ export const updateLikes = (data) => ({ type: UPDATE_LIKES, data });
 export const fetchCommnets = (comments) => ({ type: FETCH_COMMENTS, comments });
 export const addComment = (comment) => ({ type: ADD_COMMENT, comment });
 export const deleteComment = (data) => ({ type: DELETE_COMMENT, data });
+export const fetchMatch = (match) => ({ type: FETCH_MATCH, match });
 export const saveMatch = (match) => ({ type: SAVE_MATCH, match });

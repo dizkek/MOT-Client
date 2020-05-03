@@ -25,6 +25,7 @@ import {
   addComment,
   deleteComment,
   saveMatch,
+  fetchMatch,
 } from '../actions';
 
 export const requestLogIn = (data, history) => async (dispatch) => {
@@ -394,6 +395,28 @@ export const requestDeleteComment = (commentId, postId) => async (dispatch) => {
     dispatch(deleteComment(data));
   } catch (error) {
     alert('삭제에 실패했습니다. 다시 시도해 주세요.');
+  }
+};
+
+export const requestMatchData = (teamId) => async (dispatch) => {
+  try {
+    const token = window.localStorage.getItem('token');
+    const response = await fetch(
+      `${process.env.REACT_APP_API}/teams/${teamId}/match`,
+      {
+        method: 'GET',
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    const { result, match } = await response.json();
+    console.log(result, match, '인 리퀘슽 매치데이터');
+    dispatch(fetchMatch(match));
+    if (result !== 'ok') throw Error();
+  } catch (error) {
+    alert('매치 정보를 가져오기가 실패했습니다. 리프레시 해주세요');
   }
 };
 
