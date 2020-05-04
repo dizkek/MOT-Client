@@ -45,7 +45,10 @@ const Forum = ({
               margin: 0, 
               backgroundColor: COLOR.navy,
             }}
-            onClickHandler={() => onClickAddNewPost(data)}
+            onClickHandler={() => {
+              onClickAddNewPost(data);
+              setPost('');
+            }}
           >
             Post
           </Button>

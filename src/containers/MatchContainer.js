@@ -8,7 +8,8 @@ const MatchContainer = ({ teamId }) => {
   const { isLoading } = useSelector((state) => state.loading);
   const { match } = useSelector((state) => state.team);
   const { _id } = useSelector((state) => state.user);
-  const { name, admin } = useSelector((state) => state.team)
+  const { name, admin } = useSelector((state) => state.team);
+  
   const getMatchData = (data) => {
     dispatch(requestSaveMatch(data));
   };

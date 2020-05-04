@@ -17,7 +17,7 @@ const initialState = {
 };
 
 const forum = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case FETCH_TEAM_DATA:
       const { forum } = action.team;
       return {
@@ -29,7 +29,7 @@ const forum = (state = initialState, action) => {
       return {
         ...state,
         byId: byIdObjCreator(fetChedForum),
-          allIds: fetChedForum.map((forum) => forum._id).reverse(),
+        allIds: fetChedForum.map((forum) => forum._id).reverse(),
       };
     case ADD_POST:
       const { _id } = action.post;
@@ -38,7 +38,7 @@ const forum = (state = initialState, action) => {
           ...state.byId,
           [_id]: action.post,
         },
-        allIds: [_id, ...state.allIds, ],
+        allIds: [_id, ...state.allIds],
       };
     case UPDATE_POST:
       const { id, content } = action.data;
@@ -55,7 +55,7 @@ const forum = (state = initialState, action) => {
     case DELETE_POST:
       return {
         ...state,
-        allIds: state.allIds.filter((id) => id !== action.postId ),
+        allIds: state.allIds.filter((id) => id !== action.postId),
       };
     case UPDATE_LIKES:
       const { likes, postId } = action.data;
@@ -71,16 +71,16 @@ const forum = (state = initialState, action) => {
       };
     case ADD_COMMENT:
       const { comment } = action;
-        return {
-          ...state,
-          byId: {
-            ...state.byId,
-            [comment.postId]: {
-              ...state.byId[comment.postId],
-              comments: [comment._id, ...state.byId[comment.postId].comments],
-            },
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [comment.postId]: {
+            ...state.byId[comment.postId],
+            comments: [comment._id, ...state.byId[comment.postId].comments],
           },
-        };
+        },
+      };
     case DELETE_COMMENT:
       const { data } = action;
       return {

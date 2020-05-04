@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import styles from './components.module.css';
 import Button from '../components/Button';
 import debounce from 'lodash/debounce';
 import { COLOR } from '../constants/style';
+import styles from './components.module.css';
 
 const Members = ({ members, id, onClickSendInvitation, teamname }) => {
   const [email, setEmail] = useState('');
   const { byId, allIds } = members;
+  
   const submit = () => {
     const token = window.localStorage.getItem('token');
     const data = {
@@ -17,6 +18,7 @@ const Members = ({ members, id, onClickSendInvitation, teamname }) => {
     };
 
     onClickSendInvitation(data);
+    setEmail('');
   };
 
   const debouncedSubmit = debounce(submit, 700);

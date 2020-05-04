@@ -4,7 +4,13 @@ import halfField from '../images/half field.png';
 import { ABSOLUTE } from '../constants/style';
 import styles from './components.module.css';
 
-const TacticBoard = ({ regularIds = [], allPlayers, onClickSaveFormation, id }) => {
+const TacticBoard = ({ 
+  regularIds = [], 
+  allPlayers, 
+  onClickSaveFormation, 
+  id, 
+  teamname,
+}) => {
   const [currentPlayer, setCurrent] = useState('');
   const history = useHistory();
   const posX = useRef('');
@@ -41,14 +47,14 @@ const TacticBoard = ({ regularIds = [], allPlayers, onClickSaveFormation, id }) 
     <>
       <button 
         onClick={() => 
-          onClickSaveFormation(playersContainer.current, id, history)
+          onClickSaveFormation(playersContainer.current, id, history, teamname)
         }
       >
         save
       </button>
-      <div className={styles.FieldBox} >
+      <div className={styles.FieldBox}>
         <div style={{ position: 'relative' }} onDragOver={over} onDrop={done}>
-          <img src={halfField} className={styles.FieldImg} alt="halfField"/>  
+          <img src={halfField} className={styles.FieldImg} alt="halfField" />  
         </div>
       </div>
       <div 

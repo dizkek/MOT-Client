@@ -12,12 +12,6 @@ export const SING_UP_REQUEST = 'SING_UP_REQUEST';
 export const SING_UP_DUPLICATED = 'SING_UP_DUPLICATED';
 export const SING_UP_SUCCESS = 'SING_UP_SUCCESS';
 export const FETCH_TEAM_DATA = 'FETCH_TEAM_DATA';
-export const REG_PATTERNS = {
-  email: /^[a-z\d]+@[a-z]{4,11}\.[a-z]{2,5}$/,
-  name: /^[가-힣]{2,4}$/,
-  password: /^[a-z\d]{8,20}$/,
-};
-
 export const TEAM_ADD_REQUEST = 'TEAM_ADD_REQUEST';
 export const ADD_TEAM = 'ADD_TEAM';
 export const ADD_NOTICE_REQUEST = 'ADD_NOTICE_REQUEST';

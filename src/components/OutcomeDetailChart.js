@@ -12,7 +12,7 @@ const OutcomeDetailChart = ({ data, month, year }) => {
         options={{
           title: {
             display: true,
-            text: `${year}년 ${month}월 지출내역`,
+            text: `${year}년 ${month}월 지출`,
             fontSize: 25,
           },
           legend: {

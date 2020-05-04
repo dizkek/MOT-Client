@@ -12,7 +12,7 @@ const IncomeOutcomeChart = ({ data, month, year }) => {
         options={{
           title: {
             display: true,
-            text: `${year}년 ${month}월 수입 지출 내역`,
+            text: `${year}년 ${month}월 회비 & 지출 내역`,
             fontSize: 25,
           },
           legend: {

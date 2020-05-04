@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Finance from '../components/Finance';
 import debounce from 'lodash/debounce';
@@ -12,7 +12,7 @@ const FinanceContainer = ({ teamId }) => {
   const { user } = useSelector((state) => state);
   const { admin } = useSelector(state => state.team);
   const { finances } = useSelector(state => state);
-  const { isLoading } = useSelector((state) => state);
+  const { isLoading } = useSelector((state) => state.loading);
 
   const addFinanceHelper = (data) => {
     dispatch(requestAddFinance(data))
@@ -24,37 +24,40 @@ const FinanceContainer = ({ teamId }) => {
     dispatch(requestDeleteFinance(teamId, financeId));
   };
 
-
-  let data = [];
-  let detailData = [];
+  const data = useRef([]);
+  const detailData = useRef([]);
   const id =  finances.allIds[financeIndex];
 
-  if (finances.allIds.length > 0) {
-    const finance = finances.byId[id];
-    const currentMonth = finance.yearAndMonth.slice(5).replace('0', '');
-    const currentYear = finance.yearAndMonth.slice(0, 4);
-
-    const getIncomeData = () => {
-      incomeOutcomeData.datasets[0].data = [];
-      const data = incomeOutcomeData.datasets[0].data;
-      data.push(finance.income);
-      data.push(finance.outcome);
-      return [incomeOutcomeData, currentMonth, currentYear];
+  const getChartData = useCallback (() => {
+    if (finances.allIds.length > 0) {
+      const finance = finances.byId[id];
+      const currentMonth = finance.yearAndMonth.slice(5).replace('0', '');
+      const currentYear = finance.yearAndMonth.slice(0, 4);
+  
+      const getIncomeData = () => {
+        incomeOutcomeData.datasets[0].data = [];
+        const data = incomeOutcomeData.datasets[0].data;
+        data.push(finance.income);
+        data.push(finance.outcome);
+        return [incomeOutcomeData, currentMonth, currentYear];
+      };
+  
+      const getOutcomeDetail = () => {
+        outcomeDetail.datasets[0].data = [];
+        const data = outcomeDetail.datasets[0].data;
+        data.push(finance.fieldFee);
+        data.push(finance.foodFee);
+        data.push(finance.equipmentFee);
+        data.push(finance.ect);
+        return [outcomeDetail, currentMonth, currentYear];
+      };
+  
+      data.current = getIncomeData();
+      detailData.current = getOutcomeDetail();
     };
+  }, [id, finances.allIds.length, finances.byId]);
 
-    const getOutcomeDetail = () => {
-      outcomeDetail.datasets[0].data = [];
-      const data = outcomeDetail.datasets[0].data;
-      data.push(finance.fieldFee);
-      data.push(finance.foodFee);
-      data.push(finance.equipmentFee);
-      data.push(finance.ect);
-      return [outcomeDetail, currentMonth, currentYear];
-    };
-
-    data = getIncomeData();
-    detailData = getOutcomeDetail();
-  };
+  useMemo(() => getChartData() , [getChartData]);
 
   if (isLoading) {
     return (
@@ -64,7 +67,7 @@ const FinanceContainer = ({ teamId }) => {
       />
     );
   }
-
+  
   return (
     <Finance 
       userId={user._id} 
@@ -74,8 +77,8 @@ const FinanceContainer = ({ teamId }) => {
       finances={finances}
       financeIndex={financeIndex}
       setFinanceIndex={setFinanceIndex}
-      data={data}
-      detailData={detailData}
+      data={data.current}
+      detailData={detailData.current}
       onClickDeleteFinance={onClickDeleteFinance}
       financeId={id}
     />

@@ -4,8 +4,16 @@ import debounce from 'lodash/debounce';
 import { COLOR } from '../constants/style';
 import styles from './components.module.css';
 
-const Notice = ({ user, admin, notices, onClickAddNotice, teamname, id }) => {
+const Notice = ({ 
+  user, 
+  admin, 
+  notices, 
+  onClickAddNotice, 
+  teamname, 
+  teamId 
+}) => {
   const [notice, setNotice] = useState('');
+
   const submit = () => {
     const token = window.localStorage.getItem('token');
     const data = {
@@ -15,10 +23,11 @@ const Notice = ({ user, admin, notices, onClickAddNotice, teamname, id }) => {
       },
       teamname,
       token,
-      id,
+      teamId,
     };
 
     onClickAddNotice(data);
+    setNotice('');
   };
 
   const debouncedSubmit = debounce(submit, 700);

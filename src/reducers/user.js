@@ -10,7 +10,7 @@ const initialState = {
 };
 
 const user = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case FETCH_USER_DATA:
       const { teams } = action.user;
       return {

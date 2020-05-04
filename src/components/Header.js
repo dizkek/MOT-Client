@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Alogo from '../images/Alogo.jpg';
 import styles from './components.module.css';
 
-const Header = memo(({ teamname, name, admin, id }) => {
+const Header = memo(({ teamname, name, admin, id, onClickLogOut }) => {
   return (
     <header className={styles.Header}>
       <nav className={styles.Nav}>
@@ -34,9 +34,11 @@ const Header = memo(({ teamname, name, admin, id }) => {
           )}
         </ul>
         <ul className={styles.NavRight}>
-          <li>Welcome {name}</li>
+          <li className={styles.WelcomeText}>Welcome {name}</li>
           <li>
-            <Button>Log out</Button>
+            <Button style={{ margin: 0 }} onClickHandler={onClickLogOut}>
+              Log out
+            </Button>
           </li>
         </ul>
       </nav>

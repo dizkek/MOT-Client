@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Button from './Button';
-import { REG_PATTERNS } from '../constants';
+import { REG_PATTERNS } from '../constants/reg';
 import { useHistory } from "react-router-dom";
 import { COLOR } from '../constants/style';
 import styles from './components.module.css';

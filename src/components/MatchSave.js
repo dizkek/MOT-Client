@@ -35,7 +35,7 @@ const MatchSave = ({ getMatchData, teamId, setIsModifying }) => {
     }
   };
   
-  const onClickSaveMatch = debounce(submit, 1000)
+  const onClickSaveMatch = debounce(submit, 1000);
 
   return (
     <div className={styles.MatchSettingBox}>

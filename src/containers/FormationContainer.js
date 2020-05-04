@@ -6,12 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import TacticBoard from '../components/TacticBoard';
 import { Switch, Route } from 'react-router-dom';
 import { requestSaveFormation, requestFormationData } from '../thunks';
-import { BEST_ELEVEN } from '../constants/initialData';
+import { BEST_ELEVEN } from '../lib/data';
 import { ABSOLUTE } from '../constants/style';
 import { Spin } from 'antd';
 import styles from './containers.module.css';
 
-const FormationContainer = ({ match, id }) => {
+const FormationContainer = ({ match, id, teamname }) => {
   const dispatch = useDispatch();
   const [isChanging, setIsChanging] = useState(false);
   const { isLoading } = useSelector((state) => state.loading);
@@ -34,7 +34,7 @@ const FormationContainer = ({ match, id }) => {
     alert('11명을 채우고 저장을 해야 다음단계로 넘어갑니다.');
   };
 
-  const onClickSaveFormation = (ref, id, history) => {
+  const onClickSaveFormation = (ref, id, history, teamname) => {
     const nodes = ref.children;
     let count = 0;
     const data = Array.from(nodes)
@@ -52,7 +52,7 @@ const FormationContainer = ({ match, id }) => {
     }
 
     setIsChanging(false);
-    dispatch(requestSaveFormation(data, id, history));
+    dispatch(requestSaveFormation(data, id, history, teamname));
   };
 
   useEffect(() => {
@@ -74,7 +74,9 @@ const FormationContainer = ({ match, id }) => {
 
   return (
     <main className={styles.MainFormation}>
-      {admin === user._id && <AdminMenu match={match} isChanging={isChanging} />}
+      {admin === user._id && 
+        <AdminMenu match={match} isChanging={isChanging} />
+      }
       <div className={styles.contentContainer}>
         <Switch>
           <Route
@@ -93,7 +95,9 @@ const FormationContainer = ({ match, id }) => {
                   regularIds={data.columns['column-2'].playersIds}
                   allPlayers={data.players}
                   onClickSaveFormation={onClickSaveFormation}
+                  teamname={teamname}
                   id={id}
+
                 />
               )
             )}

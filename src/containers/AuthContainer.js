@@ -12,7 +12,7 @@ import styles from "./containers.module.css";
 const AuthContainer = () => {
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.loading);
-  let history = useHistory();
+  const history = useHistory();
   
   const onClickLogIn = (data, history) => {
     dispatch(requestLogIn(data, history));

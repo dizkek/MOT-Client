@@ -28,6 +28,7 @@ const CommentContainer = ({ isCommenting, postId, post }) => {
   };
 
   const onClickAddComment = debounce(postComment, 300);
+  
   return (
     <>
       {isCommenting && (
@@ -51,6 +52,7 @@ const CommentContainer = ({ isCommenting, postId, post }) => {
       </Button>
       {post.comments.map((id) => (
         <Comment 
+          userId={_id}
           key={id} 
           comment={comments.byId[id]} 
           onClickDeleteComment={onClickDeleteComment}

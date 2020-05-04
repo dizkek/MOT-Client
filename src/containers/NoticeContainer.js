@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import Notice from '../components/Notice';
 import { requestAddNotice, requestTeamData } from '../thunks';
 
-const NoticeContainer = ({ teamname, id }) => {
+const NoticeContainer = ({ teamname, teamId }) => {
   const dispatch = useDispatch();
   const { user } = useSelector(state => state);
   const { notices, admin } = useSelector(state => state.team);
+
   const onClickAddNotice = (data) => {
     dispatch(requestAddNotice(data));
   };
@@ -16,12 +17,12 @@ const NoticeContainer = ({ teamname, id }) => {
       dispatch(requestTeamData(id));
     };
 
-    fetchData(id);
-  }, [id, dispatch]);
+    fetchData(teamId);
+  }, []);
 
   return(
     <Notice
-      id={id}
+      teamId={teamId}
       user={user}
       admin={admin}
       notices={notices}

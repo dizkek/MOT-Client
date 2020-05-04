@@ -1,5 +1,10 @@
 import { byIdObjCreator } from '../lib/reducerHelper';
-import { FETCH_COMMENTS, ADD_COMMENT, DELETE_COMMENT, LOG_OUT } from '../constants';
+import { 
+  FETCH_COMMENTS, 
+  ADD_COMMENT, 
+  DELETE_COMMENT, 
+  LOG_OUT,
+} from '../constants';
 
 const initialState = {
   byId: {},
@@ -7,7 +12,7 @@ const initialState = {
 };
 
 const comments = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case FETCH_COMMENTS:
       const { comments } = action;
       return {

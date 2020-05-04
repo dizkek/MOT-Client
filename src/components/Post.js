@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import CommentContainer from '../containers/CommentContainer';
 import { 
   LikeTwoTone, 
@@ -9,7 +9,7 @@ import {
 } from '@ant-design/icons';
 import styles from './components.module.css';
 
-const Post = ({ 
+const Post = memo(({ 
   post, 
   userId, 
   onClickLikePost, 
@@ -46,7 +46,7 @@ const Post = ({
       <div className={styles.LikeBox}>
         <LikeTwoTone 
           style={{ fontSize: '30px', padding: '10px' }} 
-          twoToneColor={!isLiked() ? true : false}
+          twoToneColor={!isLiked() ? 1 : 0}
           onClick={() => onClickLikePost(post._id)}
         />
         <div>{post.likes.length}</div>
@@ -99,6 +99,6 @@ const Post = ({
       </div>
     </div>
   );
-};
+});
 
 export default Post;

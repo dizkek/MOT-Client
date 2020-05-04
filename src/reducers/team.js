@@ -27,7 +27,7 @@ const initialState = {
 };
 
 const team = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case FETCH_TEAM_DATA:
       const { members, forum } = action.team;
       return {

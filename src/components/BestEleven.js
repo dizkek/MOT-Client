@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Column from './Column';
 import Button from '../components/Button';
 import { DragDropContext } from 'react-beautiful-dnd';
 import styles from './components.module.css';
+
 const BestEleven = ({ data, setData, onClickDisplayTactic }) => {
   
-  const onDragEnd = (result) => {
+  const onDragEnd = useCallback ((result) => {
     const { destination, source, draggableId } = result;
 
     if (!destination) {
@@ -66,7 +67,7 @@ const BestEleven = ({ data, setData, onClickDisplayTactic }) => {
     };
 
     setData(newData);
-  };
+  }, [data, setData]);
   
   return (
     <>

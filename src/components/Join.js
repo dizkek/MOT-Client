@@ -18,7 +18,9 @@ const Join =({ match, onClickJoin }) => {
     <div className={styles.JoinContainer}>
       <div className={styles.JoinBox}>
         <h1> Click the button </h1>
-        <Button onClickHandler={joinTeam} style={{ margin: 0 }}>JOIN</Button>
+        <Button onClickHandler={joinTeam} style={{ margin: 0 }}>
+          JOIN
+        </Button>
       </div>
     </div>
   );

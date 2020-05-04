@@ -16,7 +16,9 @@ const Teams = ({ teams, displayRegisterForm, onClickLogOut }) => {
           <ul className={styles.TeamUl}>
             {allIds.length > 0 && allIds.map((id) => (
               <li key={byId[id].name}>
-                <Link to={`/teams/myteam/${byId[id].name}`}>{byId[id].name}</Link>
+                <Link to={`/teams/myteam/${byId[id].name}`}>
+                  {byId[id].name}
+                </Link>
               </li>
             ))}
           </ul>

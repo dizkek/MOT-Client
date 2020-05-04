@@ -19,7 +19,8 @@ const FinanceAdminMenu = ({
         <Button 
           style={{ backgroundColor: COLOR.navy }}
           onClickHandler={() =>
-            window.confirm('삭제하시겠습니까?') && onClickDeleteFinance(teamId, financeId)
+            window.confirm('삭제하시겠습니까?') &&
+            onClickDeleteFinance(teamId, financeId)
           }
         >
           Delete

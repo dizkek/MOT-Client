@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './components.module.css';
 
-const AdminMenu = ({ match }) => {
+const AdminMenu = memo(({ match }) => {
   return (
     <div className={styles.AdminMenu}>
       <div>
@@ -13,6 +13,6 @@ const AdminMenu = ({ match }) => {
       </div>
     </div>
   );
-};
+});
 
 export default AdminMenu;

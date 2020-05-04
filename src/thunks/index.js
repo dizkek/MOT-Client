@@ -183,7 +183,7 @@ export const requestTeamData = (id) => async (dispatch) => {
   }
 };
 
-export const requestSaveFormation = (data, id, history) => async (dispatch) => {
+export const requestSaveFormation = (data, id, history, teamname) => async (dispatch) => {
   try {
     dispatch({ type: LOADING_ON });
     const token = window.localStorage.getItem('token');
@@ -201,7 +201,7 @@ export const requestSaveFormation = (data, id, history) => async (dispatch) => {
 
     dispatch({ type: LOADING_OFF });
     dispatch(saveFormation(data));
-    history.push('/teams/myteam/바코/formation');
+    history.push(`/teams/myteam/${teamname}/formation`);
     alert('포메이션 저장이 완료되었습니다.');
   } catch (error) {
     alert('포메이션 저장이 실패했습니다. 다시 시도해 주세요');
@@ -320,7 +320,7 @@ export const requestModifyPost = (data) => async (dispatch) => {
 export const requestDeletePost = (data) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem('token');
-    const response = await fetch(
+    await fetch(
       `${process.env.REACT_APP_API}/teams/${data.teamId}/posts/${data.id}`,
       {
         method: 'DELETE',
@@ -362,7 +362,7 @@ export const requestAddComment = (data) => async (dispatch) => {
 export const requestDeleteComment = (commentId, postId) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem('token');
-    const response = await fetch(
+    await fetch(
       `${process.env.REACT_APP_API}/teams/posts/${postId}/comment/${commentId}`,
       {
         method: 'DELETE',

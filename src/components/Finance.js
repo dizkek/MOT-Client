@@ -26,7 +26,7 @@ const Finance = ({
   const [foodFee, setFoodFee] = useState('');
   const [equipmentFee, setEquipmentFee] = useState('');
   const [ect, setEct] = useState('');
-
+  
   const onSubmit = (e) => {
     const data = {
       finance: {
@@ -51,6 +51,10 @@ const Finance = ({
     setEquipmentFee('');
     setEct('');
   };
+  
+  if (!finances.allIds && admin !== userId) {
+    return <h1 className={styles.MatchEmptyText}>현재 등록된 내역이 없습니다.</h1>;
+  }
 
   return (
     <main className={styles.FinanceMain}>

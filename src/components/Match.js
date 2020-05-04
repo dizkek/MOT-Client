@@ -6,7 +6,15 @@ import { COLOR } from '../constants/style';
 import { GOOGLE_MAP_URL } from '../constants/URL';
 import styles from './components.module.css';
 
-const Match = ({ getMatchData, teamId, match, teamName, userId, admin, isLoading }) => {
+const Match = ({ 
+  getMatchData, 
+  teamId, 
+  match, 
+  teamName, 
+  userId, 
+  admin, 
+  isLoading 
+}) => {
   const [isModdyfing, setIsModifying] = useState(false);
   const lat = match[0] ? match[0].location[0] : 0;
   const lng = match[0] ? match[0].location[1] : 0;
@@ -17,21 +25,19 @@ const Match = ({ getMatchData, teamId, match, teamName, userId, admin, isLoading
         defaultZoom={14} 
         defaultCenter={{ lat, lng }} 
       >
-        <Marker 
-          position={{ lat, lng, }}
-        />
+        <Marker position={{ lat, lng }} />
       </GoogleMap>  
     );
-  }
+  };
   
-  const WrappedMap = withScriptjs(withGoogleMap(Map))
+  const WrappedMap = withScriptjs(withGoogleMap(Map));
   
   if (isLoading) {
     return null;
   }
 
   if (!lat && admin !== userId) {
-    return <h1>현재 등록된 게임이 없습니다.</h1>;
+    return <h1 className={styles.MatchEmptyText}>현재 등록된 게임이 없습니다.</h1>;
   }
 
   if (!lat && admin === userId)
@@ -40,12 +46,13 @@ const Match = ({ getMatchData, teamId, match, teamName, userId, admin, isLoading
         <div className={styles.MatchContainer}>
           <h1>경기를 등록해주세요!</h1>
           {!isModdyfing ? (
-            <Button style={{ 
-              marginTop: 0, 
-              marginBottom: '10px', 
-              padding: '4px', 
-              backgroundColor: 
-              COLOR.navy 
+            <Button 
+              style={{ 
+                marginTop: 0, 
+                marginBottom: '10px', 
+                padding: '4px', 
+                backgroundColor: 
+                COLOR.navy 
               }}
               onClickHandler={() => setIsModifying(true)}
             >
@@ -72,9 +79,9 @@ const Match = ({ getMatchData, teamId, match, teamName, userId, admin, isLoading
               {`${match[0].date} ${match[0].time}`}
             </div>
             <div className={styles.MatchVersus}>
-              <h2>{teamName}</h2>
-              <h2>VS</h2>
-              <h2>{match[0].opponent}</h2>
+              <div><h2>{teamName}</h2></div>
+              <div><h2>VS</h2></div>
+              <div><h2>{match[0].opponent}</h2></div>
             </div>
             {admin === userId && (
               <Button 
@@ -82,8 +89,7 @@ const Match = ({ getMatchData, teamId, match, teamName, userId, admin, isLoading
                   marginTop: 0, 
                   marginBottom: '10px', 
                   padding: '4px', 
-                  backgroundColor: 
-                  COLOR.navy 
+                  backgroundColor: COLOR.navy,
                 }}
                 onClickHandler={() => setIsModifying(true)}
               >
