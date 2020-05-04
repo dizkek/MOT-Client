@@ -1,5 +1,5 @@
 import { byIdObjCreator } from '../lib/reducerHelper';
-import { FETCH_FINANCE, ADD_FINANCE, LOG_OUT } from '../constants';
+import { FETCH_FINANCE, ADD_FINANCE, LOG_OUT, DELETE_FINANCE } from '../constants';
 
 const initialState = {
   byId: {},
@@ -29,6 +29,11 @@ const finances = (state = initialState, action) => {
         },
         allIds: newFinances.sort((a, b) => b.yearAndMonth > a.yearAndMonth ? 1 : -1 ),
       };
+    case DELETE_FINANCE:
+      return {
+        ...state,
+        allIds: state.allIds.filter((id) => id !==  action.id),
+      }
     case LOG_OUT:
       return {
         ...initialState,

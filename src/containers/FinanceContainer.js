@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Finance from '../components/Finance';
 import debounce from 'lodash/debounce';
 import { incomeOutcomeData, outcomeDetail } from '../lib/data';
-import { requestAddFinance } from '../thunks';
+import { requestAddFinance, requestDeleteFinance } from '../thunks';
 import { Spin } from 'antd';
 
 const FinanceContainer = ({ teamId }) => {
@@ -13,17 +13,23 @@ const FinanceContainer = ({ teamId }) => {
   const { admin } = useSelector(state => state.team);
   const { finances } = useSelector(state => state);
   const { isLoading } = useSelector((state) => state);
+
   const addFinanceHelper = (data) => {
     dispatch(requestAddFinance(data))
   };
   
   const onClickAddFinance = debounce(addFinanceHelper, 500);
   
+  const onClickDeleteFinance = (teamId, financeId) => {
+    dispatch(requestDeleteFinance(teamId, financeId));
+  };
+
+
   let data = [];
   let detailData = [];
+  const id =  finances.allIds[financeIndex];
 
   if (finances.allIds.length > 0) {
-    const id =  finances.allIds[financeIndex];
     const finance = finances.byId[id];
     const currentMonth = finance.yearAndMonth.slice(5).replace('0', '');
     const currentYear = finance.yearAndMonth.slice(0, 4);
@@ -70,6 +76,8 @@ const FinanceContainer = ({ teamId }) => {
       setFinanceIndex={setFinanceIndex}
       data={data}
       detailData={detailData}
+      onClickDeleteFinance={onClickDeleteFinance}
+      financeId={id}
     />
   );
 };

@@ -15,6 +15,8 @@ const Finance = ({
   setFinanceIndex, 
   data, 
   detailData,
+  onClickDeleteFinance,
+  financeId,
 }) => {
   const [isCreating, setIsCreating] = useState(false);
   const [yearAndMonth, setYearAndMonth] = useState('');
@@ -57,6 +59,9 @@ const Finance = ({
           <FinanceAdminMenu 
             isCreating={isCreating}
             setIsCreating={setIsCreating}
+            onClickDeleteFinance={onClickDeleteFinance}
+            teamId={teamId}
+            financeId={financeId}
           />
         )}
         {isCreating && (

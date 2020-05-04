@@ -19,7 +19,7 @@ const comments = (state = initialState, action) => {
       const { comment } = action;
       return {
         ...state,
-        byIds: {
+        byId: {
           ...state.byId,
           [comment._id]: comment,
         },

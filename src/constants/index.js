@@ -36,3 +36,4 @@ export const FETCH_MATCH = 'FETCH_MATCH';
 export const SAVE_MATCH = 'SAVE_MATCH';
 export const FETCH_FINANCE = 'FETCH_FINANCE';
 export const ADD_FINANCE = 'ADD_FINANCE';
+export const DELETE_FINANCE = 'DELETE_FINANCE';

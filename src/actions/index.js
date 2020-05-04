@@ -19,6 +19,7 @@ import {
   FETCH_MATCH,
   FETCH_FINANCE,
   ADD_FINANCE,
+  DELETE_FINANCE,
 } from '../constants';
 
 export const fetchUserData = (user) => ({ type: FETCH_USER_DATA, user });
@@ -41,3 +42,4 @@ export const fetchMatch = (match) => ({ type: FETCH_MATCH, match });
 export const saveMatch = (match) => ({ type: SAVE_MATCH, match });
 export const fetchFinanceData = (finances) => ({ type: FETCH_FINANCE, finances });
 export const addFinaceData = (finance) => ({ type: ADD_FINANCE, finance });
+export const deleteFinance = (id) => ({ type: DELETE_FINANCE, id });

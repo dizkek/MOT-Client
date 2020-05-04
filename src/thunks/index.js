@@ -28,6 +28,7 @@ import {
   fetchMatch,
   fetchFinanceData,
   addFinaceData,
+  deleteFinance,
 } from '../actions';
 
 export const requestLogIn = (data, history) => async (dispatch) => {
@@ -41,22 +42,19 @@ export const requestLogIn = (data, history) => async (dispatch) => {
         body: JSON.stringify(data),
       }
     );
-    const res = await response.json();
-    dispatch({ type: LOADING_OFF });
 
-    if (res.result === 'none') {
+    dispatch({ type: LOADING_OFF });
+    if (response.status === 422) {
       return alert('존재하지 않는 계정입니다.');
-    } else if (res.result === 'incorrect password') {
+    } else if (response.status === 401) {
       return alert('잘못된 비밀번호입니다.');
-    } else if (res.result === 'error') {
-      throw new Error();
-    }
-    
-    const { user, token } = res;
+    } 
+
+    const { user, token } = await response.json();;
     dispatch({ type: LOG_IN_SUCCESS });
     dispatch(fetchUserData(user));
     window.localStorage.setItem('token', token);
-    history.push("/teams")
+    history.push("/teams");
   } catch (error) {
     dispatch({ type: LOG_IN_FAILURE });
     return alert('서버가 혼잡합니다. 다시 시도해주세요');
@@ -66,7 +64,7 @@ export const requestLogIn = (data, history) => async (dispatch) => {
 export const requestSignUp = (data, history) => async (dispatch) => {
   try {
     dispatch({ type: SING_UP_REQUEST });
-    const response = await fetch(`
+    const { status } = await fetch(`
       ${process.env.REACT_APP_API}/auth/signup`,
       {
         method: 'POST',
@@ -74,17 +72,15 @@ export const requestSignUp = (data, history) => async (dispatch) => {
         body: JSON.stringify(data),
       }
     );
-    const res = await response.json();
-    dispatch({ type: LOADING_OFF });
-    
-    if (res.result === 'duplicated') {
-      return alert('중복된 이메일입니다.');
-    } else if (res.result === 'ok') {
-      history.push("/");
-      return alert('회원가입에 성공했습니다.');
-    }
 
-    throw new Error();
+    dispatch({ type: LOADING_OFF });
+    if (status === 401) {
+      return alert('중복된 이메일입니다.');
+    }
+      
+    history.push("/");
+    alert('회원가입에 성공했습니다.');
+    
   } catch (error) {
     dispatch({ type: LOADING_OFF });
     alert('서버가 혼잡합니다. 다시 시도해주세요');
@@ -106,18 +102,15 @@ export const registerTeam = (data, history) => async (dispatch) => {
         body: JSON.stringify(data),
       }
     );
-    const res = await response.json();
     dispatch({ type: LOADING_OFF });
-    
-    if (res.result === 'duplicated') {
+    if (response.status === 409) {
       return alert('이미 존재하고 있는 팀이름입니다.');
-    } else if (res.result === 'ok') {
-      dispatch(addTeam(res.team));
-      history.push("/teams");
-      return alert('팀이 추가되었습니다.');
     }
-    
-    throw new Error();
+
+    const { team } = await response.json();
+    dispatch(addTeam(team));
+    history.push("/teams");
+    alert('팀이 추가되었습니다.');
   } catch (error) {
     alert('서버가 혼잡합니다. 다시 시도해주세요');
   }
@@ -127,7 +120,7 @@ export const requestAddNotice = (data) => async (dispatch) => {
   try {
     dispatch({ type: LOADING_ON });
     const { token, id } = data;
-    const response = await fetch(
+    await fetch(
       `${process.env.REACT_APP_API}/teams/${id}/notice`,
       {
         method: 'POST',
@@ -138,23 +131,20 @@ export const requestAddNotice = (data) => async (dispatch) => {
         body: JSON.stringify(data),
       }
     );
-    const { result } = await response.json();
-    if (result !== 'ok') {
-      throw Error();
-    }
 
     dispatch(addNotice(data.notice));
     dispatch({ type: LOADING_OFF });
   } catch (error) {
+    dispatch({ type: LOADING_OFF });
     alert('서버가 혼잡합니다. 다시 시도해주세요');
   }
 };
 
-export const requestMembersData = (id) => async (dispatch) => {
+export const requestMembersData = (teamId) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem('token');
     const response = await fetch(
-      `${process.env.REACT_APP_API}/teams/${id}/members`, 
+      `${process.env.REACT_APP_API}/teams/${teamId}/members`, 
       {
         method: 'GET',
         headers: { 
@@ -164,8 +154,7 @@ export const requestMembersData = (id) => async (dispatch) => {
       }
     );
     
-    const { result, members } = await response.json();
-    if (result !== 'ok') throw Error();
+    const { members } = await response.json();
     dispatch(fetchMembersData(members));
   } catch (error) {
     alert('데이터를 가져오는데 실패했습니다. 리프레시를 해주세요');
@@ -186,8 +175,7 @@ export const requestTeamData = (id) => async (dispatch) => {
       }
     );
     
-    const { result, team } = await response.json();
-    if (result !== 'ok') throw Error();
+    const { team } = await response.json();
     dispatch(getTeamData(team));
     dispatch(fetchFinanceData(team.finances));
   } catch (error) {
@@ -199,7 +187,7 @@ export const requestSaveFormation = (data, id, history) => async (dispatch) => {
   try {
     dispatch({ type: LOADING_ON });
     const token = window.localStorage.getItem('token');
-    const response = await fetch(
+    await fetch(
       `${process.env.REACT_APP_API}/teams/${id}/formation`,
       {
         method: 'POST',
@@ -210,10 +198,9 @@ export const requestSaveFormation = (data, id, history) => async (dispatch) => {
         body: JSON.stringify(data),
       }
     );
-    const { result } = await response.json();
+
     dispatch({ type: LOADING_OFF });
     dispatch(saveFormation(data));
-    if (result !== 'ok') throw Error();
     history.push('/teams/myteam/바코/formation');
     alert('포메이션 저장이 완료되었습니다.');
   } catch (error) {
@@ -234,8 +221,8 @@ export const requestFormationData = (teamId) => async (dispatch) => {
         },
       }
     );
-    const { result, formation } = await response.json();
-    if (result !== 'ok') throw Error();
+
+    const { formation } = await response.json();
     dispatch(updateFormation(formation));
   } catch (error) {
     alert('포메이션 데이터 가져오기가 실패했습니다.');
@@ -256,8 +243,8 @@ export const requestAddPost = (data) => async (dispatch) => {
         body: JSON.stringify(data),
       }
     );
-    const { result, newPost } = await response.json();
-    if (result !== 'ok') throw Error();
+
+    const { newPost } = await response.json();
     dispatch(addPost(newPost));
   } catch (error) {
     alert('새글 작성이 실패했습니다. 다시작성해주세요');
@@ -277,8 +264,8 @@ export const requestForumData = (teamId) => async (dispatch) => {
         },
       }
     );
-    const { result, forum, comments } = await response.json();
-    if (result !== 'ok') throw Error();
+
+    const { forum, comments } = await response.json();
     dispatch(fetchCommnets(comments));
     dispatch(fetchForumData(forum));
   } catch (error) {
@@ -300,8 +287,8 @@ export const sendLikeRequest = (teamId, postId, userId) => async (dispatch) => {
         body: JSON.stringify({ userId }),
       }
     );
-    const { result, likes } = await response.json();
-    if (result !== 'ok') throw Error();
+
+    const { likes } = await response.json();
     const data = { likes, postId }
     dispatch(updateLikes(data));
   } catch (error) {
@@ -312,7 +299,7 @@ export const sendLikeRequest = (teamId, postId, userId) => async (dispatch) => {
 export const requestModifyPost = (data) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem('token');
-    const response = await fetch(
+    await fetch(
       `${process.env.REACT_APP_API}/teams/${data.teamId}/posts/${data.id}`,
       {
         method: 'PUT',
@@ -323,8 +310,7 @@ export const requestModifyPost = (data) => async (dispatch) => {
         body: JSON.stringify(data),
       }
     );
-    const { result } = await response.json();
-    if (result !== 'ok') throw Error();
+
     dispatch(updatePost(data));
   } catch (error) {
     alert('수정에 실패했습니다. 다시 시도해 주세요.');
@@ -345,8 +331,7 @@ export const requestDeletePost = (data) => async (dispatch) => {
         body: JSON.stringify(data),
       }
     );
-    const { result } = await response.json();
-    if (result !== 'ok') throw Error();
+    
     dispatch(deletePost(data.id));
   } catch (error) {
     alert('삭제에 실패했습니다. 다시 시도해 주세요.');
@@ -367,8 +352,7 @@ export const requestAddComment = (data) => async (dispatch) => {
         body: JSON.stringify(data),
       }
     );
-    const { result, comment } = await response.json();
-    if (result !== 'ok') throw Error();
+    const { comment } = await response.json();
     dispatch(addComment(comment));
   } catch (error) {
     alert('등록에 실패했습니다. 다시 시도해 주세요.');
@@ -388,8 +372,7 @@ export const requestDeleteComment = (commentId, postId) => async (dispatch) => {
         },
       }
     );
-    const { result } = await response.json();
-    if (result !== 'ok') throw Error();
+
     const data = {
       commentId,
       postId
@@ -414,9 +397,9 @@ export const requestMatchData = (teamId) => async (dispatch) => {
         },
       }
     );
-    const { result, match } = await response.json();
+
+    const { match } = await response.json();
     dispatch(fetchMatch(match));
-    if (result !== 'ok') throw Error();
   } catch (error) {
     alert('매치 정보를 가져오기가 실패했습니다. 리프레시 해주세요');
   }
@@ -427,7 +410,7 @@ export const requestSaveMatch = (data) => async (dispatch) => {
     dispatch({ type: LOADING_ON });
     const { match, teamId } = data;
     const token = window.localStorage.getItem('token');
-    const response = await fetch(
+    await fetch(
       `${process.env.REACT_APP_API}/teams/${teamId}/match`,
       {
         method: 'POST',
@@ -438,9 +421,8 @@ export const requestSaveMatch = (data) => async (dispatch) => {
         body: JSON.stringify(match),
       }
     );
-    const { result } = await response.json();
+
     dispatch(saveMatch(match));
-    if (result !== 'ok') throw Error();
     dispatch({ type: LOADING_OFF });
   } catch (error) {
     dispatch({ type: LOADING_OFF });
@@ -464,9 +446,32 @@ export const requestAddFinance = (data) => async (dispatch) => {
         body: JSON.stringify(finance),
       }
     );
-    const { result, newFinance } = await response.json();
+
+    const { newFinance } = await response.json();
     dispatch(addFinaceData(newFinance));
-    if (result !== 'ok') throw Error();
+    dispatch({ type: LOADING_OFF });
+  } catch (error) {
+    dispatch({ type: LOADING_OFF });
+  }
+};
+
+export const requestDeleteFinance= (teamId, financeId) => async (dispatch) => {
+  try {
+    console.log(teamId, '팀아이디')
+    dispatch({ type: LOADING_ON });
+    const token = window.localStorage.getItem('token');
+    await fetch(
+      `${process.env.REACT_APP_API}/teams/${teamId}/finance/${financeId}`,
+      {
+        method: 'DELETE',
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    
+    dispatch(deleteFinance(financeId));
     dispatch({ type: LOADING_OFF });
   } catch (error) {
     dispatch({ type: LOADING_OFF });
