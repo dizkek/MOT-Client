@@ -447,8 +447,8 @@ export const requestAddFinance = (data) => async (dispatch) => {
       }
     );
 
-    const { newFinance } = await response.json();
-    dispatch(addFinaceData(newFinance));
+    const { newFinances } = await response.json();
+    dispatch(addFinaceData(newFinances));
     dispatch({ type: LOADING_OFF });
   } catch (error) {
     dispatch({ type: LOADING_OFF });
@@ -457,7 +457,6 @@ export const requestAddFinance = (data) => async (dispatch) => {
 
 export const requestDeleteFinance= (teamId, financeId) => async (dispatch) => {
   try {
-    console.log(teamId, '팀아이디')
     dispatch({ type: LOADING_ON });
     const token = window.localStorage.getItem('token');
     await fetch(

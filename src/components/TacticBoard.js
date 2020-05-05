@@ -17,7 +17,6 @@ const TacticBoard = ({
   const posY = useRef('');
   const distX = useRef('');
   const distY = useRef('');
-
   const playersContainer = useRef('');
 
   const start = (e) => {

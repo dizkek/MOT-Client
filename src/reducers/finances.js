@@ -19,19 +19,20 @@ const finances = (state = initialState, action) => {
         allIds,
       };
     case ADD_FINANCE:
-      const { finance } = action;
-      const newFinances = [...state.allIds, finance._id];
+      const { newFinances } = action;
+      const newAllIds = newFinances
+        .sort((a, b) => b.yearAndMonth > a.yearAndMonth ? 1 : -1)
+        .map((finance) => finance._id);
       return {
         ...state,
-        byId: {
-          ...state.byId,
-          [finance._id] : finance,
-        },
-        allIds: newFinances.sort((a, b) => b.yearAndMonth > a.yearAndMonth ? 1 : -1 ),
+        byId: byIdObjCreator(newFinances),
+        allIds: newAllIds,
       };
     case DELETE_FINANCE:
+      const byIdObj = state.allIds.length === 1 ? {} : state.byId;
       return {
         ...state,
+        byId: byIdObj,
         allIds: state.allIds.filter((id) => id !==  action.id),
       }
     case LOG_OUT:

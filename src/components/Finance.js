@@ -60,7 +60,8 @@ const Finance = ({
     <main className={styles.FinanceMain}>
       <div className={styles.FinanceContainer}>
         {userId === admin && (
-          <FinanceAdminMenu 
+          <FinanceAdminMenu
+            setFinanceIndex={setFinanceIndex}
             isCreating={isCreating}
             setIsCreating={setIsCreating}
             onClickDeleteFinance={onClickDeleteFinance}
@@ -143,7 +144,7 @@ const Finance = ({
             </form>
           </div>
         )}
-        {data.length > 0 && (
+        {finances.allIds.length > 0 && (
           <ChartBox 
             financeIndex={financeIndex} 
             setFinanceIndex={setFinanceIndex} 

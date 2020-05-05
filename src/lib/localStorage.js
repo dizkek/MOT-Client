@@ -5,6 +5,7 @@ export const loadState = () => {
     if (serealizedState === null) {
       return undefined;
     }
+    
     return JSON.parse(serealizedState);
   } catch(e) {
     return undefined;

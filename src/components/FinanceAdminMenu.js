@@ -9,7 +9,13 @@ const FinanceAdminMenu = ({
   onClickDeleteFinance, 
   teamId, 
   financeId,
+  setFinanceIndex,
 }) => {
+  const proceedDelete = () => {
+    onClickDeleteFinance(teamId, financeId);
+    setFinanceIndex(0);
+  };
+
   return (
     <div className={styles.FinanceButtonBox}>
       <Button onClickHandler={() => setIsCreating(!isCreating)}>
@@ -20,7 +26,7 @@ const FinanceAdminMenu = ({
           style={{ backgroundColor: COLOR.navy }}
           onClickHandler={() =>
             window.confirm('삭제하시겠습니까?') &&
-            onClickDeleteFinance(teamId, financeId)
+            proceedDelete()
           }
         >
           Delete

@@ -41,5 +41,5 @@ export const deleteComment = (data) => ({ type: DELETE_COMMENT, data });
 export const fetchMatch = (match) => ({ type: FETCH_MATCH, match });
 export const saveMatch = (match) => ({ type: SAVE_MATCH, match });
 export const fetchFinanceData = (finances) => ({ type: FETCH_FINANCE, finances });
-export const addFinaceData = (finance) => ({ type: ADD_FINANCE, finance });
+export const addFinaceData = (newFinances) => ({ type: ADD_FINANCE, newFinances });
 export const deleteFinance = (id) => ({ type: DELETE_FINANCE, id });

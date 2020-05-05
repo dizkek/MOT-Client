@@ -1,5 +1,5 @@
 export const incomeOutcomeData = {
-  labels: [`수입`, '지출'],
+  labels: ['수입', '지출'],
   datasets: [{
     data:[],
     backgroundColor: [
