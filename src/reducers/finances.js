@@ -1,4 +1,4 @@
-import { byIdObjCreator } from '../lib/reducerHelper';
+import { byIdObjCreator } from '../utils/reducerHelper';
 import { FETCH_FINANCE, ADD_FINANCE, LOG_OUT, DELETE_FINANCE } from '../constants';
 
 const initialState = {

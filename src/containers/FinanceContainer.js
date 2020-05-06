@@ -2,7 +2,7 @@ import React, { useState, useMemo, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Finance from '../components/Finance';
 import debounce from 'lodash/debounce';
-import { incomeOutcomeData, outcomeDetail } from '../lib/data';
+import { incomeOutcomeData, outcomeDetail } from '../utils/data';
 import { requestAddFinance, requestDeleteFinance } from '../thunks';
 import { Spin } from 'antd';
 

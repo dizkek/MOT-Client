@@ -13,10 +13,6 @@ export const loadState = () => {
 };
 
 export const saveState = (state) => {
-  try {
-    const serealizedState = JSON.stringify(state);
-    localStorage.setItem('state', serealizedState);
-  } catch(e) {
-    
-  }
+  const serealizedState = JSON.stringify(state);
+  localStorage.setItem('state', serealizedState);
 };

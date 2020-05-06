@@ -1,4 +1,4 @@
-import { byIdObjCreator } from '../lib/reducerHelper';
+import { byIdObjCreator } from '../utils/reducerHelper';
 import { 
   FETCH_TEAM_DATA,
   FETCH_FORUM_DATA,
@@ -13,7 +13,7 @@ import {
 
 const initialState = {
   byId: {},
-  allId: [],
+  allIds: [],
 };
 
 const forum = (state = initialState, action) => {

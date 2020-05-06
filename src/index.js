@@ -8,7 +8,7 @@ import thunk from 'redux-thunk';
 import App from './containers/App';
 import './styles.css';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { loadState, saveState } from './lib/localStorage';
+import { loadState, saveState } from './utils/localStorage';
 
 const persistedState = loadState();
 const composeEnhancers = composeWithDevTools({

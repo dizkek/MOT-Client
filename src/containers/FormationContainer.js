@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import TacticBoard from '../components/TacticBoard';
 import { Switch, Route } from 'react-router-dom';
 import { requestSaveFormation, requestFormationData } from '../thunks';
-import { BEST_ELEVEN } from '../lib/data';
+import { BEST_ELEVEN } from '../utils/data';
 import { ABSOLUTE } from '../constants/style';
 import { Spin } from 'antd';
 import styles from './containers.module.css';

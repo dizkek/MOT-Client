@@ -10,7 +10,6 @@ import {
 
 const initialState = {
   isLoading: false,
-  isError: false,
 };
 
 const loading = (state = initialState, action) => {

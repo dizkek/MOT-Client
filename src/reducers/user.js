@@ -1,4 +1,4 @@
-import { byIdObjCreator } from '../lib/reducerHelper';
+import { byIdObjCreator } from '../utils/reducerHelper';
 import { FETCH_USER_DATA, ADD_TEAM, LOG_OUT, LOG_IN_SUCCESS } from '../constants';
 
 const initialState = {
@@ -25,7 +25,7 @@ const user = (state = initialState, action) => {
       const { team } = action;
       const { byId, allIds } = state.teams;
       byId[team._id] = team;
-      
+     
       return {
         ...state,
         teams: {

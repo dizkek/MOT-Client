@@ -1,4 +1,4 @@
-import { byIdObjCreator } from '../lib/reducerHelper';
+import { byIdObjCreator } from '../utils/reducerHelper';
 import { 
   FETCH_TEAM_DATA, 
   ADD_NOTICE_REQUEST, 
