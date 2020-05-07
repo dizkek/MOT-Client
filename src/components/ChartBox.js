@@ -24,7 +24,8 @@ const ChartBox = ({ financeIndex, setFinanceIndex, finances, data, detailData })
           {financeIndex + 1 !== finances.allIds.length && (
             <Button
               style={{ marginRight: '20px' }}
-              onClickHandler={() => setFinanceIndex((prev => prev + 1))}>
+              onClickHandler={() => setFinanceIndex((prev => prev + 1))}
+            >
               Prev
             </Button>
           )}

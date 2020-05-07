@@ -44,7 +44,8 @@ const Post = memo(({
   return (
     <div className={styles.ThreadBox}>
       <div className={styles.LikeBox}>
-        <LikeTwoTone 
+        <LikeTwoTone
+          className='likeIcon'
           style={{ fontSize: '30px', padding: '10px' }} 
           twoToneColor={!isLiked() ? 1 : 0}
           onClick={() => onClickLikePost(post._id)}
@@ -61,6 +62,7 @@ const Post = memo(({
         />
         <div className={styles.CommentInputBox}>
           <CommentOutlined 
+            className='commentIcon'
             style={{ fontSize: '23px', marginRight: '10px' }} 
             onClick={() => setIsCommenting(!isCommenting)}
           />
@@ -81,7 +83,8 @@ const Post = memo(({
               style={{ fontSize: '23px', marginRight: '10px' }} 
               onClick={() => setIsModifying(!isModifying)}
             />
-            <DeleteOutlined 
+            <DeleteOutlined
+              className='delete'
               style={{ fontSize: '23px', marginRight: '10px' }} 
               onClick={() => 
                 window.confirm('삭제하시겠습니까?') && onClickDeletePost(data)

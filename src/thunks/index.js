@@ -221,9 +221,8 @@ export const requestFormationData = (teamId) => async (dispatch) => {
         },
       }
     );
-
-    const { formation } = await response.json();
-    dispatch(updateFormation(formation));
+    const res = await response.json();
+    dispatch(updateFormation(res.formation));
   } catch (error) {
     alert('포메이션 데이터 가져오기가 실패했습니다.');
   }

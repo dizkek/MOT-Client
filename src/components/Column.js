@@ -3,7 +3,7 @@ import Player from './Player';
 import { Droppable } from 'react-beautiful-dnd';
 import styles from './components.module.css';
 
-const Column = ({ column, players }) => {
+const Column = ({ column, players = [] }) => {
   return (
     <div className={styles.ColumnContainer}>
       <h3>{column.title}</h3>

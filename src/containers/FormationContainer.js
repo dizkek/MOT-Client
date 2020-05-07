@@ -15,17 +15,11 @@ const FormationContainer = ({ match, id, teamname }) => {
   const dispatch = useDispatch();
   const [isChanging, setIsChanging] = useState(false);
   const { isLoading } = useSelector((state) => state.loading);
-  const { members, admin } = useSelector((state) => state.team);
   const { user } = useSelector((state) => state);
   const { formation } = useSelector((state) => state.team);
+  const { members, admin } = useSelector((state) => state.team);
+  const [data, setData] = useState([]);
 
-  const [data, setData] = useState(() => {
-    const obj = JSON.parse(JSON.stringify(members));
-    BEST_ELEVEN.players = obj.byId;
-    BEST_ELEVEN.columns['column-1'].playersIds = obj.allIds;
-    return BEST_ELEVEN;
-  });
- 
   const onClickDisplayTactic = () => {
     if (data.columns['column-2'].playersIds.length === 11) {
       return setIsChanging(true);
@@ -63,26 +57,33 @@ const FormationContainer = ({ match, id, teamname }) => {
     fetchData(id);
   }, []);
 
+  useEffect(() => {
+    const obj = JSON.parse(JSON.stringify(members));
+    BEST_ELEVEN.players = obj.byId;
+    BEST_ELEVEN.columns['column-1'].playersIds = obj.allIds;
+    setData(BEST_ELEVEN);
+  }, [members]);
+
   if (isLoading) {
     return (
       <Spin 
         size="large" 
-        style={{ position: ABSOLUTE, top: '50%', left: '50%'}} 
+        style={{ position: ABSOLUTE, top: '50%', left: '50%' }} 
       />
     );
   }
 
   return (
     <main className={styles.MainFormation}>
-      {admin === user._id && 
+      {admin === user._id && (
         <AdminMenu match={match} isChanging={isChanging} />
-      }
+      )}
       <div className={styles.contentContainer}>
         <Switch>
           <Route
             exact
             path={`${match.path}/besteleven`}
-            render={(props) => (
+            render={(props) =>
               !isChanging ? (
                 <BestEleven 
                   {...props} 
@@ -97,10 +98,9 @@ const FormationContainer = ({ match, id, teamname }) => {
                   onClickSaveFormation={onClickSaveFormation}
                   teamname={teamname}
                   id={id}
-
                 />
               )
-            )}
+            }
           >
           </Route>
           <Route

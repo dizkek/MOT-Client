@@ -7,7 +7,8 @@ const Comment = ({ comment, onClickDeleteComment, userId }) => {
     <div className={styles.CommentBox}>
       <p className={styles.CommentText}>{`${comment.name}: ${comment.content}`}</p>
       {userId === comment.writer && (
-        <CloseCircleOutlined 
+        <CloseCircleOutlined
+          className='deleteButton'
           style={{ fontSize: '18px' }}  
           onClick={() => onClickDeleteComment(comment._id, comment.postId)}
         />

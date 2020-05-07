@@ -46,7 +46,8 @@ const LoginForm = ({ onClickRenderSignUp, onClickLogIn }) => {
             required
           />
           <Button type="submit">Login</Button>
-          <Button 
+          <Button
+            className='signupButton'
             onClickHandler={onClickRenderSignUp} 
             style={{ backgroundColor: COLOR.navy }}
           >

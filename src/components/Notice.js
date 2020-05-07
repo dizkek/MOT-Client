@@ -10,7 +10,7 @@ const Notice = ({
   notices, 
   onClickAddNotice, 
   teamname, 
-  teamId 
+  teamId,
 }) => {
   const [notice, setNotice] = useState('');
 

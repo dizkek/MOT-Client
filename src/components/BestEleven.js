@@ -4,8 +4,8 @@ import Button from '../components/Button';
 import { DragDropContext } from 'react-beautiful-dnd';
 import styles from './components.module.css';
 
-const BestEleven = ({ data, setData, onClickDisplayTactic }) => {
-  
+const BestEleven = ({ data = [], setData, onClickDisplayTactic }) => {
+
   const onDragEnd = useCallback ((result) => {
     const { destination, source, draggableId } = result;
 
@@ -68,7 +68,7 @@ const BestEleven = ({ data, setData, onClickDisplayTactic }) => {
 
     setData(newData);
   }, [data, setData]);
-  
+
   return (
     <>
       <Button style={{ margin: 15 }} onClickHandler={onClickDisplayTactic}>

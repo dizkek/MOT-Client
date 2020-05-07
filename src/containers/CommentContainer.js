@@ -11,7 +11,7 @@ const CommentContainer = ({ isCommenting, postId, post }) => {
   const dispatch = useDispatch();
   const { name, _id } = useSelector((state) => state.user);
   const { comments } = useSelector((state) => state);
-
+  console.log(comments, '코멘트');
   const postComment = () => {
     const data = {
       postId,
@@ -28,7 +28,7 @@ const CommentContainer = ({ isCommenting, postId, post }) => {
   };
 
   const onClickAddComment = debounce(postComment, 300);
-  
+
   return (
     <>
       {isCommenting && (
@@ -36,28 +36,32 @@ const CommentContainer = ({ isCommenting, postId, post }) => {
           className={styles.CommentInput}
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          placeholder="Write comment"
+          placeholder="Write"
         />
       )}
       <Button
         type="submit"
         style={{
-          padding: '4px', 
-          fontSize: 13, 
-          margin: 5, 
+          padding: '4px',
+          fontSize: 13,
+          margin: 5,
         }}
         onClickHandler={onClickAddComment}
       >
         Post
       </Button>
-      {post.comments.map((id) => (
-        <Comment 
-          userId={_id}
-          key={id} 
-          comment={comments.byId[id]} 
-          onClickDeleteComment={onClickDeleteComment}
-        />
-      ))}
+      {post.comments.map((id) => {
+        if (comments.allIds.length) {
+          return (
+            <Comment
+              userId={_id}
+              key={id}
+              comment={comments.byId[id]}
+              onClickDeleteComment={onClickDeleteComment}
+            />
+          );
+        }
+      })}
     </>
   );
 };

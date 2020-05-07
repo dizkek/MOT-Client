@@ -7,7 +7,7 @@ import {
   requestForumData, 
   sendLikeRequest, 
   requestModifyPost, 
-  requestDeletePost 
+  requestDeletePost,
 } from '../thunks';
 
 const ForumContainer = ({ teamId }) => {
@@ -16,11 +16,11 @@ const ForumContainer = ({ teamId }) => {
   const { forum } = useSelector((state) => state);
 
   const onClickDeletePost = (data) => {
-    dispatch(requestDeletePost(data))
+    dispatch(requestDeletePost(data));
   };
 
   const onClickModifyPost = (data) => {
-    dispatch(requestModifyPost(data))
+    dispatch(requestModifyPost(data));
   };
 
   const requestNewPost = (data) => {

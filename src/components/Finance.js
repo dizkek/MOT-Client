@@ -55,7 +55,7 @@ const Finance = ({
   if (!finances.allIds && admin !== userId) {
     return <h1 className={styles.MatchEmptyText}>현재 등록된 내역이 없습니다.</h1>;
   }
-
+  
   return (
     <main className={styles.FinanceMain}>
       <div className={styles.FinanceContainer}>
@@ -102,7 +102,7 @@ const Finance = ({
                   className={styles.Input}
                   value={fieldFee}
                   type="number" 
-                  placeholder="경기장 대여"
+                  placeholder="경기장대여"
                   onChange={(e) => setFieledFee(e.target.value)}
                   required
                 />

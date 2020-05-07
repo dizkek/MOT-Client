@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useRef } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Finance from '../components/Finance';
 import debounce from 'lodash/debounce';
@@ -8,6 +8,8 @@ import { Spin } from 'antd';
 
 const FinanceContainer = ({ teamId }) => {
   const [financeIndex, setFinanceIndex] = useState(0);
+  const [pideData, setPieData] = useState([]);
+  const [pieDetailData, setPieDetailData] = useState([]);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state);
   const { admin } = useSelector(state => state.team);
@@ -24,8 +26,6 @@ const FinanceContainer = ({ teamId }) => {
     dispatch(requestDeleteFinance(teamId, financeId));
   };
 
-  const data = useRef([]);
-  const detailData = useRef([]);
   const id =  finances.allIds[financeIndex];
 
   const getChartData = useCallback (() => {
@@ -52,12 +52,14 @@ const FinanceContainer = ({ teamId }) => {
         return [outcomeDetail, currentMonth, currentYear];
       };
   
-      data.current = getIncomeData();
-      detailData.current = getOutcomeDetail();
+      setPieData(getIncomeData())
+      setPieDetailData(getOutcomeDetail())
     };
   }, [id, finances.allIds.length, finances.byId]);
 
-  useMemo(() => getChartData() , [getChartData]);
+  useEffect(() => {
+    getChartData();
+  }, [getChartData])
 
   if (isLoading) {
     return (
@@ -77,8 +79,8 @@ const FinanceContainer = ({ teamId }) => {
       finances={finances}
       financeIndex={financeIndex}
       setFinanceIndex={setFinanceIndex}
-      data={data.current}
-      detailData={detailData.current}
+      data={pideData}
+      detailData={pieDetailData}
       onClickDeleteFinance={onClickDeleteFinance}
       financeId={id}
     />

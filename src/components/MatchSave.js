@@ -61,7 +61,7 @@ const MatchSave = ({ getMatchData, teamId, setIsModifying }) => {
           value={opponent}
           onChange={(e) => setOpponent(e.target.value)}
           type="text"
-          placeholder="상대팀 이름"
+          placeholder="상대팀이름"
           required
         />
         <input

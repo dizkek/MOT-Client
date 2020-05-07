@@ -26,7 +26,7 @@ const RegisterForm = ({ onCLickRegisterTeam, email }) => {
             onChange={(e) => setTeamName(e.target.value)}
             required
           />
-          <Button type="submit" >Register</Button>
+          <Button type="submit" >Create</Button>
           <Button 
             type="button" 
             onClickHandler={() => history.push("/teams")} 

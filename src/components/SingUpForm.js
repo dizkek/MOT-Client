@@ -62,8 +62,9 @@ const SingUpForm = ({ onCLickSingUp }) => {
       <input 
         className={styles.Input}
         value={confirmedPassword}
-        type="password" 
-        placeholder="confrim password"
+        type="password"
+        data-cy="passwordConfirm"
+        placeholder="confirm password"
         onChange={(e) => setConfirmedPassword(e.target.value)}
         required
       />
