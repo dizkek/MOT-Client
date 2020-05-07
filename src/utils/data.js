@@ -32,6 +32,7 @@ export const outcomeDetail = {
 
 export const BEST_ELEVEN = {
   players: {
+    
   },
   columns: {
     'column-1': {
