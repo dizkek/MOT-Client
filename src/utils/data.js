@@ -31,9 +31,7 @@ export const outcomeDetail = {
 };
 
 export const BEST_ELEVEN = {
-  players: {
-
-  },
+  players: {},
   columns: {
     'column-1': {
       id: 'column-1',
