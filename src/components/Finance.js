@@ -26,7 +26,7 @@ const Finance = ({
   const [foodFee, setFoodFee] = useState('');
   const [equipmentFee, setEquipmentFee] = useState('');
   const [ect, setEct] = useState('');
-  
+ 
   const onSubmit = (e) => {
     const data = {
       finance: {
