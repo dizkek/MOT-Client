@@ -32,7 +32,7 @@ export const outcomeDetail = {
 
 export const BEST_ELEVEN = {
   players: {
-    
+
   },
   columns: {
     'column-1': {
@@ -44,7 +44,7 @@ export const BEST_ELEVEN = {
       id: 'column-2',
       title: 'Best Eleven',
       playersIds: [],
-    }
+    },
   },
   columnOrder: ['column-1', 'column-2'],
 };
