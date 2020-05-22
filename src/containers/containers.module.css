@@ -19,6 +19,12 @@
 
 .Image {
   height: 100%;
+  
+}
+
+.ImageInvisible {
+  height: 100%;
+  display: none;
 }
 
 .HomeContainer {
