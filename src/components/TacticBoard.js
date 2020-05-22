@@ -12,6 +12,7 @@ const TacticBoard = ({
   teamname,
 }) => {
   const [currentPlayer, setCurrent] = useState('');
+  const [isLoaded, setIsLoaded] = useState(false);
   const history = useHistory();
   const posX = useRef('');
   const posY = useRef('');
@@ -53,26 +54,33 @@ const TacticBoard = ({
       </button>
       <div className={styles.FieldBox}>
         <div style={{ position: 'relative' }} onDragOver={over} onDrop={done}>
-          <img src={halfField} className={styles.FieldImg} alt="halfField" />  
+          <img 
+            src={halfField} 
+            className={isLoaded ? styles.FieldImg : styles.FieldImgInvisible} 
+            alt="halfField"
+            onLoad={() => setIsLoaded(true)}
+          />  
         </div>
       </div>
-      <div 
-        ref={playersContainer} 
-        className={styles.PlayersBox} 
-        onDragOver={over} 
-        onDrop={done}
-      >
-        {regularIds.map((id) => (
-          <span 
-            key={id} 
-            className={styles.Player} 
-            draggable="true" 
-            onDragStart={start}
-          >
-            <span>{allPlayers[id].name}</span>
-          </span>
-        ))}
-      </div>
+      {isLoaded && (
+        <div 
+          ref={playersContainer} 
+          className={styles.PlayersBox} 
+          onDragOver={over} 
+          onDrop={done}
+        >
+          {regularIds.map((id) => (
+            <span 
+              key={id} 
+              className={styles.Player} 
+              draggable="true" 
+              onDragStart={start}
+            >
+              <span>{allPlayers[id].name}</span>
+            </span>
+          ))}
+        </div>
+      )}
     </>
   );
 };

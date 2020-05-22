@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { requestSignUp, requestLogIn } from '../thunks';
 import { Switch, Route } from "react-router-dom";
@@ -10,10 +10,11 @@ import loginImage from '../images/login.jpg';
 import styles from "./containers.module.css";
 
 const AuthContainer = () => {
+  const [isLoaded, setIsLoaded] = useState(false);
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.loading);
   const history = useHistory();
-  
+
   const onClickLogIn = (data, history) => {
     dispatch(requestLogIn(data, history));
   };
@@ -34,7 +35,12 @@ const AuthContainer = () => {
     <div className={styles.LoginContainer}>
       {isLoading && <Spin size="large" className="spinner" />}
       <div className={styles.LoginBox}>
-        <img src={loginImage} className={styles.Image} alt="logInImage"/>
+        <img 
+          src={loginImage}
+          className={isLoaded ? styles.Image :  styles.ImageInvisible} 
+          alt="logInImage"
+          onLoad={() => setIsLoaded(true)}
+        />
         <Switch>
           <Route 
             path="/signup"
