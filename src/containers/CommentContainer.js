@@ -11,7 +11,7 @@ const CommentContainer = ({ isCommenting, postId, post }) => {
   const dispatch = useDispatch();
   const { name, _id } = useSelector((state) => state.user);
   const { comments } = useSelector((state) => state);
-  console.log(comments, '코멘트');
+
   const postComment = () => {
     const data = {
       postId,
